@@ -5,70 +5,77 @@ using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
-    public string NextSceneName;
-    public float rotatePeriod;
-    public Transform buttonParent;
-    public Button[] buttons;
-    public float hoverButtonRatio;
-    public float buttonMoveDuration;
-    public float buttonMoveDelay;
-    [SerializeField] Transform cube;
-    [SerializeField] SettingUI settingUI;
+	public string NextSceneName;
+	public float rotatePeriod;
+	public Transform buttonParent;
+	public Button[] buttons;
+	public float hoverButtonRatio;
+	public float buttonMoveDuration;
+	public float buttonMoveDelay;
+	[SerializeField] Transform cube;
+	[SerializeField] SettingUI settingUI;
 
-    private Vector3 originalButtonScale;
-    private bool isButtonInteractable;
+	private Vector3 originalButtonScale;
+	private bool isButtonInteractable;
 
-    private void Awake()
-    {
-        foreach (Button btn in buttons)
-        {
-            btn.enabled = false;
+	private void Awake()
+	{
+		foreach (Button btn in buttons)
+		{
+			btn.enabled = false;
 		}
-    }
-
-    private void Start()
-    {
-        cube.DORotate(new Vector3(360, 360, 0), rotatePeriod, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
-        buttonParent.DOLocalMoveX(200, buttonMoveDuration).SetEase(Ease.OutBack).SetDelay(buttonMoveDelay).OnComplete(EnableButtons);
-
-        originalButtonScale = buttons[0].transform.localScale;
-    }
-
-    public void NewGame()
-    {
-        DOTween.Clear();
-        SceneManager.LoadScene(NextSceneName);
 	}
 
-    public void MouseOnButton(Button aButton)
-    {
-        if (!isButtonInteractable) return;
-        aButton.transform.DOScale(aButton.transform.localScale * hoverButtonRatio, 0.2f);
+	private void Start()
+	{
+		cube.DORotate(new Vector3(360, 360, 0), rotatePeriod, RotateMode.FastBeyond360)
+			.SetLoops(-1, LoopType.Restart)
+			.SetEase(Ease.Linear);
+
+		buttonParent
+			.DOLocalMoveX(200, buttonMoveDuration)
+			.SetEase(Ease.OutBack)
+			.SetDelay(buttonMoveDelay)
+			.OnComplete(EnableButtons);
+
+		originalButtonScale = buttons[0].transform.localScale;
 	}
 
-    public void MouseExitButton(Button aButton)
-    {
-        if (!isButtonInteractable) return;
-        aButton.transform.DOScale(originalButtonScale, 0.2f);
+	public void NewGame()
+	{
+		DOTween.Clear();
+		SceneManager.LoadScene(NextSceneName);
 	}
 
-    public void Setting()
-    {
-        Debug.Log("Open Setting Page");
-        settingUI.gameObject.SetActive(true);
+	public void MouseOnButton(Button aButton)
+	{
+		if (!isButtonInteractable) return;
+		aButton.transform.DOScale(aButton.transform.localScale * hoverButtonRatio, 0.2f);
 	}
 
-    public void ExitGame()
-    {
-        Application.Quit();
+	public void MouseExitButton(Button aButton)
+	{
+		if (!isButtonInteractable) return;
+		aButton.transform.DOScale(originalButtonScale, 0.2f);
 	}
 
-    private void EnableButtons()
-    {
-        isButtonInteractable = true;
-        foreach (Button btn in buttons)
-        {
-            btn.enabled = true;
-        }
-    }
+	public void Setting()
+	{
+		Debug.Log("Open Setting Page");
+		settingUI.gameObject.SetActive(true);
+	}
+
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
+
+	private void EnableButtons()
+	{
+		isButtonInteractable = true;
+		foreach (Button btn in buttons)
+		{
+			btn.enabled = true;
+		}
+	}
 }
