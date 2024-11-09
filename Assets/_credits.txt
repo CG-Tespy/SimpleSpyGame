@@ -35,7 +35,16 @@
 ~3D Art~
 	Axajia
 	Batewar
+	Supercyan
+	IgniteCoders
 
-~Animations~
+~Animation~
 	Kevin Iglesias
+
+~Special Thanks~
+	GameDevTV
+	Zenva Academy
+	Jacqueline Castro
+	Rafael Romero
+	Conrado Saud
 
