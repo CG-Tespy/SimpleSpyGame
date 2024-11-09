@@ -1,0 +1,24 @@
+~Game Engine~
+	Unity Technologies
+
+~Programming~
+	CG-Tespy
+
+~3D Artistry~
+	Supercyan
+	Alex94i60
+	IgniteCoders
+
+~Musical Artistry~
+	Nid (AKA Aoha Music)
+
+~Animation~
+	Kevin Iglesias
+
+~Special Thanks~
+	GameDevTV
+	Zenva Academy
+	Jacqueline Castro
+	Rafael Romero
+	Conrado Saud
+	
