@@ -1,0 +1,31 @@
+~Game Engine~
+	Unity Techologies
+
+~Programming~
+	~UI~
+		Chris
+
+	~Gameplay~
+		CG-Tespy
+
+	~Audio~
+		CG-Tespy
+
+	~Third-Party Plugins~
+		Demigiant
+		Denis Rizov
+
+	~First-Party Plugins~
+		CG-Tespy
+
+~Audio~
+	~BG Music~
+		Golianakin
+		Aoha Music (AKA Nid)
+
+	~Sound FX~
+		Golianakin
+		Nox Sound
+
+~3D Art~
+	Axajia
