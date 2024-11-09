@@ -1,6 +1,13 @@
 ~Game Engine~
 	Unity Techologies
 
+~Jam Members~
+	Chris
+	CG-Tespy
+	Golianakin
+	Axajia
+	Bing
+	
 ~Programming~
 	~UI~
 		Chris
@@ -11,13 +18,11 @@
 	~Audio~
 		CG-Tespy
 
-	~Third-Party Plugins~
+	~Plugins~
 		Demigiant
 		Denis Rizov
-
-	~First-Party Plugins~
 		CG-Tespy
-
+		
 ~Audio~
 	~BG Music~
 		Golianakin
@@ -29,3 +34,8 @@
 
 ~3D Art~
 	Axajia
+	Batewar
+
+~Animations~
+	Kevin Iglesias
+
