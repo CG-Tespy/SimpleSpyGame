@@ -14,7 +14,7 @@ namespace CGT.Myceliaudio
         [Tooltip("Whether or not this should do its thing based on the SliderStep component")]
         [SerializeField] protected bool _useSliderStep;
 
-        [Tooltip("Whether this should do its thing right away")]
+        [SerializeField] protected bool _applyOnAwake = false;
         [SerializeField] protected bool _applyOnStart = false;
 
         protected virtual void Awake()
@@ -22,6 +22,11 @@ namespace CGT.Myceliaudio
             _prevStepVal = _slider.value;
             // ^To prevent things from activating twice in quick succession in
             // response to a single step
+
+            if (_applyOnAwake)
+            {
+                InitApply();
+            }
         }
 
         protected float _prevStepVal;

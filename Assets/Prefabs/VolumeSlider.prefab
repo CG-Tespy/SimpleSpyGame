@@ -159,8 +159,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2380496309152715470, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
+      propertyPath: _applyOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2380496309152715470, guid: 14a051276b2aac041bd358071c9b1d70,
+        type: 3}
       propertyPath: _applyOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2380496309152715470, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
@@ -180,11 +185,26 @@ PrefabInstance:
     - target: {fileID: 6924975324544660538, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6924975324544660538, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
       propertyPath: _trackGroup
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924975324544660538, guid: 14a051276b2aac041bd358071c9b1d70,
+        type: 3}
+      propertyPath: _applyOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924975324544660538, guid: 14a051276b2aac041bd358071c9b1d70,
+        type: 3}
+      propertyPath: _applyOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924975324544660538, guid: 14a051276b2aac041bd358071c9b1d70,
+        type: 3}
+      propertyPath: _useSliderStep
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7922037218768596740, guid: 14a051276b2aac041bd358071c9b1d70,
@@ -244,6 +264,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8558814416533974045, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8558814416533974045, guid: 14a051276b2aac041bd358071c9b1d70,
+        type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
@@ -276,12 +301,12 @@ PrefabInstance:
     - target: {fileID: 8558814416784332799, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 64.99998
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8558814416784332799, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -32.50001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8558814417366341966, guid: 14a051276b2aac041bd358071c9b1d70,
         type: 3}
