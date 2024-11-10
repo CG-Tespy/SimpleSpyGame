@@ -9,6 +9,7 @@ public class SettingUI : MonoBehaviour
 	[SerializeField] Button closeButton; 
 	[SerializeField] Slider bgmSlider; 
 	[SerializeField] Slider sfxSlider;
+	[SerializeField] MainMenu mainMenu;
 
 	[SerializeField] AudioSource bgmSource;
 	[SerializeField] AudioSource sfxSource;
@@ -16,7 +17,12 @@ public class SettingUI : MonoBehaviour
 	[SerializeField] TMP_Text bgmValue;
 	[SerializeField] TMP_Text sfxValue;
 
-	private void Start()
+    private void Awake()
+    {
+		transform.localScale = Vector3.zero;
+    }
+
+    private void Start()
 	{
 		bgmSlider.value = bgmSource.volume;
 		sfxSlider.value = sfxSource.volume;
@@ -40,6 +46,10 @@ public class SettingUI : MonoBehaviour
 		transform.DOScale(0, popDuration).OnComplete(()=>
 		{
 			gameObject.SetActive(false);
-		});
+            mainMenu.buttonParent.
+                DOLocalMoveX(200, mainMenu.buttonMoveDuration).
+                SetEase(Ease.OutBack).
+				OnComplete(mainMenu.EnableButtons);
+        });
 	}
 }

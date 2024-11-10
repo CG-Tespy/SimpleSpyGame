@@ -8,12 +8,17 @@ public class MainMenu : MonoBehaviour
 	public string NextSceneName;
 	public float rotatePeriod;
 	public Transform buttonParent;
+	public Button startButton;
+	public Button settingButton;
+	public Button exitButton;
 	public Button[] buttons;
+
 	public float hoverButtonRatio;
 	public float buttonMoveDuration;
 	public float buttonMoveDelay;
 	[SerializeField] Transform cube;
 	[SerializeField] SettingUI settingUI;
+
 
 	private Vector3 originalButtonScale;
 	private bool isButtonInteractable;
@@ -62,7 +67,14 @@ public class MainMenu : MonoBehaviour
 	public void Setting()
 	{
 		Debug.Log("Open Setting Page");
-		settingUI.gameObject.SetActive(true);
+		DisenableButtons();
+		buttonParent.
+			DOLocalMoveX(500, buttonMoveDuration).
+			SetEase(Ease.InBack).
+			OnComplete(()=> {
+                settingUI.gameObject.SetActive(true);
+                settingButton.transform.DOScale(originalButtonScale, 0.2f);
+            });
 	}
 
 	public void ExitGame()
@@ -70,12 +82,21 @@ public class MainMenu : MonoBehaviour
 		Application.Quit();
 	}
 
-	private void EnableButtons()
+	public void EnableButtons()
 	{
 		isButtonInteractable = true;
 		foreach (Button btn in buttons)
 		{
 			btn.enabled = true;
+		}
+	}
+
+	public void DisenableButtons()
+	{
+		isButtonInteractable = false;
+		foreach (Button btn in buttons)
+		{
+			btn.enabled = false;
 		}
 	}
 }
