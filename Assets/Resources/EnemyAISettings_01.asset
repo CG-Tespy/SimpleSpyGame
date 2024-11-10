@@ -15,3 +15,5 @@ MonoBehaviour:
   <PatrolSpeed>k__BackingField: 2
   <ChaseSpeed>k__BackingField: 5
   <VisionRange>k__BackingField: 5
+  <PatrolPauseDur>k__BackingField: 0.5
+  <PatrolTurnDur>k__BackingField: 1
