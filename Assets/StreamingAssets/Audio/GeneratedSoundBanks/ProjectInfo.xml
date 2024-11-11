@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo>
+	<Project Name="FightToTheLast_WwiseProject" GUID="{CE2C06BC-A75D-43E9-824C-F160A2B48376}" Generator="2023.1.4.8496"/>
+	<CacheRoot>../../../../FightToTheLast_WwiseProject/.cache</CacheRoot>
+	<Platforms>
+		<Platform Name="Mac" GUID="{DF8F7DB0-F326-4131-B65D-0F491FD79EAD}" BasePlatform="Mac" BasePlatformGUID="{9C6217D5-DD11-4795-87C1-6CE02853C540}" Path="../../../../FightToTheLast_WwiseProject/GeneratedSoundBanks/Mac"/>
+		<Platform Name="Windows" GUID="{7A7D56AF-CF3C-4255-BB0E-8F045911E7D3}" BasePlatform="Windows" BasePlatformGUID="{6E0CB257-C6C8-4C5C-8366-2740DFC441EB}" Path="../../../../FightToTheLast_WwiseProject/GeneratedSoundBanks/Windows"/>
+	</Platforms>
+	<Languages>
+		<Language Name="English(US)" Id="684519430" GUID="{D4EB691D-F8A1-48C5-B243-6D29AA302FA7}" Default="true" UseAsStandIn="true"/>
+	</Languages>
+	<FileHash>{26C6C4CF-A547-FD05-0C69-0CFA860C0CC1}</FileHash>
+</ProjectInfo>
