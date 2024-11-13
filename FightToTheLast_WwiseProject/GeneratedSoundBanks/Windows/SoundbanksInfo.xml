@@ -22,6 +22,28 @@
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
 		</SoundBank>
+		<SoundBank Id="3161908922" Type="User" Language="SFX" Hash="{1D89D77B-3F6B-768E-9E5B-7FA0A316AA38}">
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
+			<Media>
+				<File Id="617534861" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Intrigue.wav</ShortName>
+					<CachePath>SFX/Intrigue_818F3B66.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="4289285412" Name="MusicTestPlay" DurationType="OneShot" DurationMin="68.5932" DurationMax="68.5932">
+					<MediaRefs>
+						<MediaRef Id="617534861"/>
+					</MediaRefs>
+				</Event>
+				<Event Id="2766765342" Name="MusicTestStop" DurationType="OneShot" DurationMin="0" DurationMax="0">
+					<ActionPostEvent>
+						<ActionPostEventEntry Id="4289285412" Name="MusicTestPlay"/>
+					</ActionPostEvent>
+				</Event>
+			</Events>
+		</SoundBank>
 	</SoundBanks>
-	<FileHash>{65ACD701-C344-9E7E-4B1A-A247DBAA44A3}</FileHash>
+	<FileHash>{28058F55-32A6-46DF-7E74-A14ED8259C80}</FileHash>
 </SoundBanksInfo>

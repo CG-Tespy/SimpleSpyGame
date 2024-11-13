@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{A52D2352-D430-4F9D-8047-C2B679767A45}" SchemaVersion="119">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{A52D2352-D430-4F9D-8047-C2B679767A45}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{A52D2352-D430-4F9D-8047-C2B679767A45}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="World" ID="{E821B372-3B0D-4C1F-BD2C-8910C0EE6EF6}" ShortID="679650620"/>
+				<Folder Name="Non World" ID="{1667DF3C-2A57-4466-880F-EAF42A53CF95}" ShortID="667537784">
+					<ChildrenList>
+						<Folder Name="Music" ID="{E73CB9AE-8F30-477D-8D96-3F0EA98064D8}" ShortID="148624957">
+							<ChildrenList>
+								<Event Name="MusicTestPlay" ID="{67F75EB0-A0FA-4982-A4AC-96B0F1A6B1B4}">
+									<ChildrenList>
+										<Action Name="" ID="{919273E9-BAEB-4C12-B831-FC450E34B59F}" ShortID="762457333">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Music_Test" ID="{5124849F-6E9B-423A-A4E9-98312F298B68}" WorkUnitID="{53890FA9-19F2-41D1-965C-F57890FE4E5B}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="MusicTestStop" ID="{8239221A-4CE9-441E-96E9-17FE9A2CB4DF}">
+									<ChildrenList>
+										<Action Name="" ID="{E03E5C27-2B35-4933-893E-91790198C059}" ShortID="640953269">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="41"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="MusicTestPlay" ID="{67F75EB0-A0FA-4982-A4AC-96B0F1A6B1B4}" WorkUnitID="{A52D2352-D430-4F9D-8047-C2B679767A45}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{1FACAB77-9B78-4021-B5C2-C730D5AB78FA}" ShortID="463666412">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Music_Test" ID="{5124849F-6E9B-423A-A4E9-98312F298B68}" WorkUnitID="{53890FA9-19F2-41D1-965C-F57890FE4E5B}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

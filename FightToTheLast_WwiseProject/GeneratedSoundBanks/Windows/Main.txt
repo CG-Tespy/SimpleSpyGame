@@ -1,0 +1,7 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2766765342	MusicTestStop			\Default Work Unit\Non World\Music\MusicTestStop	
+	4289285412	MusicTestPlay			\Default Work Unit\Non World\Music\MusicTestPlay	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	617534861	Music_Test	D:\Documentos\GitHub\FightToTheLast\FightToTheLast_WwiseProject\.cache\Windows\SFX\Intrigue_818F3B66.wem		\Actor-Mixer Hierarchy\Default Work Unit\Non World\Music\Main Menu Music\Music_Test		12099936
+
