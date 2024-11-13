@@ -16,7 +16,9 @@ namespace FightToTheLast
         [Tooltip("Holds the waypoints for the patrol route")]
         [SerializeField] protected Transform _holdsRoute;
 
+        [Header("States To Transition To")]
         [SerializeField] protected State _onWaypointReached;
+        [SerializeField] protected State _onTargetFound;
 
         [Header("For Debugging")]
         [ReadOnly]
@@ -93,6 +95,17 @@ namespace FightToTheLast
         public override void ExecUpdate()
         {
             base.ExecUpdate();
+
+            _targetSpotted = null;
+            CheckForTarget();
+
+            if (_targetSpotted != null && _onTargetFound != null)
+            {
+                _controller.Target = _targetSpotted;
+                TransitionTo(_onTargetFound);
+                return;
+            }
+
             bool closeEnough = _navAgent.remainingDistance <= 0.01f;
             if (closeEnough && !PausedForTurning)
             {
@@ -109,6 +122,35 @@ namespace FightToTheLast
             }
         }
 
+        protected virtual void CheckForTarget()
+        {
+            Collider[] targetsFound = Physics.OverlapSphere(AgentPos, Settings.VisionRange, Settings.TargetLayers);
+            bool targetWithinTheRightDistance = targetsFound.Length > 0;
+            if (!targetWithinTheRightDistance)
+            {
+                return;
+            }
+
+            Transform targetToConsider = targetsFound[0].transform;
+            Vector3 towardsTarget = (targetToConsider.position - AgentPos).normalized;
+
+            bool inVisionConeArea = Vector3.Angle(AgentTrans.forward, towardsTarget) < Settings.VisionAngle / 2;
+
+            if (inVisionConeArea)
+            {
+                bool isViewObstructed = Physics.Raycast(AgentPos, towardsTarget,
+                    Settings.VisionRange, Settings.ObstacleLayers);
+
+                if (!isViewObstructed)
+                {
+                    _targetSpotted = targetToConsider;
+                    return;
+                }
+            }
+        }
+
+        protected Transform _targetSpotted;
+
         protected virtual void TargetTheNextWaypoint()
         {
             _targetWaypointIndex++;
@@ -124,7 +166,7 @@ namespace FightToTheLast
         public override void Exit()
         {
             base.Exit();
-
+            _targetSpotted = null;
             _navAgent.isStopped = PausedForTurning = true;
         }
 
