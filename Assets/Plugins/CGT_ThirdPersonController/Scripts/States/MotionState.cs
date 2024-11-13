@@ -19,7 +19,7 @@ namespace CGT.CharacterControls
         protected UBCCMovementApplier _moveApplier;
         protected IMovementInputReader _inputReader;
 
-        public override void Enter()
+        public override void Enter(IState enteringFrom = null)
         {
             base.Enter();
             ListenForInput();

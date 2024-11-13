@@ -9,7 +9,7 @@ namespace CGT
         /// </summary>
         void Init();
 
-        void Enter();
+        void Enter(IState enteringFrom = null);
         event Action<IState> Entered;
 
         void ExecEarlyUpdate();

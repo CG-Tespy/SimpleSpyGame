@@ -19,5 +19,17 @@ namespace CGT.Utils
                 toRemoveFrom.Remove(item);
             }
         }
+
+        public static IList<T> ReversedCopy<T>(this IList<T> baseList)
+        {
+            IList<T> result = new List<T>();
+
+            for (int i = baseList.Count - 1; i >= 0; i--)
+            {
+                result.Add(baseList[i]);
+            }
+
+            return result;
+        }
     }
 }

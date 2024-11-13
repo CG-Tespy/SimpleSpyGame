@@ -13,7 +13,7 @@ namespace CGT
 
         }
 
-        public virtual void Enter()
+        public virtual void Enter(IState enteringFrom = null)
         {
             Debug.Log($"Entered state {this.name}");
             Entered(this);
