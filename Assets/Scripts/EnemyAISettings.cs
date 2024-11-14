@@ -16,6 +16,8 @@ namespace FightToTheLast
         [field: SerializeField] public virtual float PatrolPauseDur { get; protected set; } = 1f;
         [Tooltip("How long the AI spends turning right before moving to the next point in the path")]
         [field: SerializeField] public virtual float PatrolTurnDur { get; protected set; } = 0.5f;
+        [field: SerializeField] public virtual float WaypointStoppingDistance { get; protected set; } = 0.01f;
+        [field: SerializeField] public virtual float ChaseStoppingDistance { get; protected set; } = 1.03f;
         [field: SerializeField] public virtual LayerMask TargetLayers { get; protected set; } = ~0;
         [field: SerializeField] public virtual LayerMask ObstacleLayers { get; protected set; } = ~0;
         

@@ -146,6 +146,7 @@ Transform:
   m_Children:
   - {fileID: 2523185662815188456}
   - {fileID: 6470825863960888308}
+  - {fileID: 3138382329137995676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3461532278262041609
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AISettings>k__BackingField: {fileID: 11400000, guid: d1397ccf052e70a41b7a8e4effb7563e,
     type: 2}
-  <SightOrigin>k__BackingField: {fileID: 0}
+  <SightOrigin>k__BackingField: {fileID: 3138382329137995676}
 --- !u!114 &2798387687578727672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +285,39 @@ MonoBehaviour:
   _onWaypointReached: {fileID: 3540291534619604395}
   _onTargetFound: {fileID: 2229480926737586525}
   _targetWaypoint: {fileID: 0}
+  _waypoints: []
+  _targetWaypointIndex: -1
+--- !u!1 &4531573805444638260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3138382329137995676}
+  m_Layer: 0
+  m_Name: SightOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3138382329137995676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4531573805444638260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.696, z: 0.195}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1655642765052073136}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8845156292342207881
 GameObject:
   m_ObjectHideFlags: 0

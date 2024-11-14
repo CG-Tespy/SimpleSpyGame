@@ -1,11 +1,10 @@
 using CGT;
 using CGT.Utils;
-using System.Collections;
+using DG.Tweening;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using DG.Tweening;
-using NaughtyAttributes;
 
 namespace FightToTheLast
 {
@@ -21,8 +20,9 @@ namespace FightToTheLast
         [SerializeField] protected State _onTargetFound;
 
         [Header("For Debugging")]
-        [ReadOnly]
-        [SerializeField] protected Transform _targetWaypoint;
+        [ReadOnly] [SerializeField] protected Transform _targetWaypoint;
+        [ReadOnly] [SerializeField] protected List<Transform> _waypoints = new List<Transform>();
+        [ReadOnly] [SerializeField] protected int _targetWaypointIndex = -1;
 
         public override void Init()
         {
@@ -52,21 +52,18 @@ namespace FightToTheLast
             _waypoints.AddRange(reversedWaypoints);
         }
 
-
-        protected IList<Transform> _waypoints = new List<Transform>();
-
         public override void Enter(IState enteringFrom = null)
         {
             base.Enter(enteringFrom);
             // We want to go to the nearest waypoint before deciding on a series of paths. 
             // After all, we might've entered this state after we got done chasing something
-
+            _navAgent.speed = Settings.PatrolSpeed;
+            _navAgent.stoppingDistance = Settings.WaypointStoppingDistance;
+            _navAgent.isStopped = false;
             TargetTheNextWaypoint();
             UpdatePathToWaypoint();
             TurnBeforeGoingDownPath(ThenGoToTargetWaypoint);
         }
-
-        protected int _targetWaypointIndex = -1;
 
         protected virtual void UpdatePathToWaypoint()
         {
@@ -106,7 +103,7 @@ namespace FightToTheLast
                 return;
             }
 
-            bool closeEnough = _navAgent.remainingDistance <= 0.01f;
+            bool closeEnough = _navAgent.remainingDistance <= Settings.WaypointStoppingDistance + 0.01f;
             if (closeEnough && !PausedForTurning)
             {
                 if (_onWaypointReached != null)
@@ -172,10 +169,10 @@ namespace FightToTheLast
 
         private void OnDrawGizmos()
         {
-            if (_toMove != null)
+            if (_toMove != null && SightOrigin != null)
             {
-                Vector3 startPoint = _toMove.position;
-                Vector3 endPoint = startPoint + (_toMove.forward * 5);
+                Vector3 startPoint = SightOrigin.position;
+                Vector3 endPoint = startPoint + (_toMove.forward * Settings.VisionRange);
                 Color prevColor = Gizmos.color;
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(startPoint, endPoint);
