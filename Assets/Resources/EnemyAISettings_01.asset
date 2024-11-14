@@ -20,7 +20,7 @@ MonoBehaviour:
   <PatrolPauseDur>k__BackingField: 0.5
   <PatrolTurnDur>k__BackingField: 1
   <WaypointStoppingDistance>k__BackingField: 0.01
-  <ChaseStoppingDistance>k__BackingField: 1.5
+  <ChaseStoppingDistance>k__BackingField: 2
   <TargetLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 128

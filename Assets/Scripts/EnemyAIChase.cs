@@ -34,8 +34,14 @@ namespace FightToTheLast
             bool targetWithinRange = distanceFromTarget < Settings.VisionRange;
 
             Vector3 towardsTarget = (TargetPos - AgentPos).normalized;
-            bool targetViewObstructed = false; // Physics.Raycast(AgentPos, towardsTarget,
-                                               //Settings.ChaseRange, Settings.ObstacleLayers);
+
+            RaycastHit hit;
+            bool targetViewObstructed = Physics.Raycast(AgentPos, towardsTarget, out hit, distanceFromTarget, Settings.ObstacleLayers);
+
+            if (hit.collider != null)
+            {
+                Debug.Log($"Obstacles obstructing the view of {_controller.name} is {hit.transform.name}");
+            }
 
             bool weCanSeeTheTarget = targetWithinRange && !targetViewObstructed;
             if (weCanSeeTheTarget)
