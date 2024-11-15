@@ -15,7 +15,7 @@ namespace CGT
 
         public virtual void Enter(IState enteringFrom = null)
         {
-            Debug.Log($"Entered state {this.name}");
+            //Debug.Log($"Entered state {this.name}");
             Entered(this);
         }
 
@@ -43,7 +43,7 @@ namespace CGT
 
         public virtual void Exit()
         {
-            Debug.Log($"Exited state {this.name}");
+            //Debug.Log($"Exited state {this.name}");
             Exited(this);
         }
 

@@ -30,7 +30,7 @@ namespace FightToTheLast
         protected virtual void HandleChase()
         {
             float distanceFromTarget = Vector3.Distance(TargetPos, AgentPos);
-            Debug.Log($"Chase state distance from target: {distanceFromTarget}");
+            //Debug.Log($"Chase state distance from target: {distanceFromTarget}");
             bool targetWithinRange = distanceFromTarget < Settings.VisionRange;
 
             Vector3 towardsTarget = (TargetPos - AgentPos).normalized;
