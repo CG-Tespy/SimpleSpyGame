@@ -13,6 +13,7 @@ namespace FightToTheLast
         [Header("States")]
         [SerializeField] protected EnemyAIPatrol _patrolState;
         [SerializeField] protected State _idleState;
+        [SerializeField] protected State _chaseState;
 
         [Header("Anim Param Names")]
         [SerializeField] protected string _idleKey = "idle";
@@ -32,16 +33,12 @@ namespace FightToTheLast
 
         protected IList<string> _allKeys = new List<string>();
 
-        protected virtual void OnEnable()
-        {
-
-        }
-
         protected virtual void Update()
         {
             ResetAnimBools();
             HandlePatrolAnim();
             HandleIdleAnim();
+            HandleChaseAnim();
         }
 
         protected virtual void HandlePatrolAnim()
@@ -72,6 +69,18 @@ namespace FightToTheLast
             {
                 _animator.SetBool(_idleKey, true);
             }
+        }
+
+        protected virtual void HandleChaseAnim()
+        {
+            bool chasing = _stateMachine.HasStateActive(_chaseState);
+
+            if (!chasing)
+            {
+                return;
+            }
+
+            _animator.SetBool(_runningKey, true);
         }
 
         protected virtual void ResetAnimBools()

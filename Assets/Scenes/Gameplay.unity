@@ -2921,7 +2921,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838630411}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2905555, y: 0, z: 0, w: 0.95685816}
+  m_LocalRotation: {x: 0.290556, y: 0, z: 0, w: 0.956858}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3550,6 +3550,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: _BaseEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5495251384498004740, guid: b003126e92d3bc54a8108779a843b5fe,
+        type: 3}
+      propertyPath: _chaseState
+      value: 
+      objectReference: {fileID: 275635529}
     - target: {fileID: 7191811806692785509, guid: b003126e92d3bc54a8108779a843b5fe,
         type: 3}
       propertyPath: _holdsRoute
