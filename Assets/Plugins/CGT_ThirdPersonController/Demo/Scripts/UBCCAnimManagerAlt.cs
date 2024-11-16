@@ -35,19 +35,24 @@ namespace CGT.CharacterControls
             _inputReader = GetComponentInParent<IMovementInputReader>();
             _steering = GetComponentInParent<LocomotionTracker>();
 
-            _animKeys = new List<string>()
+            _animBoolKeys = new List<string>()
+            {
+                hidingKey,
+            };
+
+            _animFloatKeys = new List<string>()
             {
                 horizMoveKey,
                 forwardMoveKey,
                 airVelKey,
-                hidingKey,
             };
         }
 
         protected float _animPrevSpeed;
         protected IMovementInputReader _inputReader;
         protected LocomotionTracker _steering;
-        protected IList<string> _animKeys = new List<string>();
+        protected IList<string> _animBoolKeys = new List<string>();
+        protected IList<string> _animFloatKeys = new List<string>();
 
         protected virtual void Update()
         {
@@ -68,10 +73,11 @@ namespace CGT.CharacterControls
 
         protected virtual void ResetAnimBools()
         {
-            foreach (string key in _animKeys)
+            foreach (string key in _animBoolKeys)
             {
                 _animator.SetBool(key, false);
             }
+
         }
 
         protected virtual void UpdateMainMovementVal()

@@ -6,9 +6,11 @@ namespace FightToTheLast
 {
     public class PlayerHidingState : State
     {
+        [SerializeField] protected bool _changeCollHeight = true;
         [Tooltip("The height of the player collider while hiding")]
         [SerializeField] protected float _hideCollHeight = 0.5f;
 
+        [SerializeField] protected bool _changeCollCenter = true;
         [SerializeField] protected Vector3 _hideCollCenter = Vector3.zero;
 
         public override void Init()
@@ -29,16 +31,33 @@ namespace FightToTheLast
         {
             base.Enter(enteringFrom);
             Debug.Log($"Entered hiding state");
-            _charaController.height = _hideCollHeight;
-            _charaController.center = _hideCollCenter;
+
+            if (_changeCollHeight)
+            {
+                _charaController.height = _hideCollHeight;
+            }
+
+            if (_changeCollCenter)
+            {
+                _charaController.center = _hideCollCenter;
+            }
+
             _moveApplier.XMovement = _moveApplier.ZMovement = 0;
         }
 
         public override void Exit()
         {
             base.Exit();
-            _charaController.height = _origCollHeight;
-            _charaController.center = _origCollCenter;
+
+            if (_changeCollHeight)
+            {
+                _charaController.height = _origCollHeight;
+            }
+
+            if (_changeCollCenter)
+            {
+                _charaController.center = _origCollCenter;
+            }
         }
     }
 }

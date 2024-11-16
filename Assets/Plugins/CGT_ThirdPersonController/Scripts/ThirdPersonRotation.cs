@@ -10,8 +10,8 @@ namespace CGT.PlayerMoveController
 
         public override void OnFixedUpdate()
         {
-            base.OnUpdate();
-            if (!ThereIsMovementInputThisFrame)
+            base.OnFixedUpdate();
+            if (!ThereIsMovementInputThisFrame || !this.isActiveAndEnabled)
             {
                 return;
             }
@@ -66,6 +66,7 @@ namespace CGT.PlayerMoveController
             bool shouldApplyRotation = ThereIsMovementInputThisFrame;
             if (shouldApplyRotation)
             {
+                Debug.Log($"Applying rotation!");
                 float angle = Mathf.Atan2(forward.x + right.x,
                     forward.z + right.z) * Mathf.Rad2Deg;
 

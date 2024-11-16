@@ -230,6 +230,7 @@ Transform:
   - {fileID: 8550308198098966664}
   - {fileID: 4674517861848944817}
   - {fileID: 3788581153011123051}
+  - {fileID: 4346384837646680420}
   m_Father: {fileID: 4715188974477058132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2896156154093660856
@@ -380,6 +381,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charaController: {fileID: 340775245454156804}
+--- !u!1 &2992889304816599545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4346384837646680420}
+  - component: {fileID: 4607988263115453927}
+  m_Layer: 0
+  m_Name: Rotation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4346384837646680420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992889304816599545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2683966656141127127}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4607988263115453927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992889304816599545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed511b24e53b51a4396250db1130c70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 10
+  inputReader: {fileID: 5020440357082625290}
+  toRotate: {fileID: 4715188974477058132}
+  rotationSpeed: 10
 --- !u!1 &3252188532971223344
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +573,7 @@ MonoBehaviour:
   _walkState: {fileID: 5498123410578913305}
   _runState: {fileID: 3810119165349721985}
   _sprintState: {fileID: 8117345872892506824}
+  _hidingState: {fileID: 0}
   _movementApplier: {fileID: 8332786457353650716}
   _groundCheck: {fileID: 8951719238959360343}
   _transitionSpeed: 5
@@ -534,6 +584,7 @@ MonoBehaviour:
   forwardMoveKey: vert
   inAirKey: air
   airVelKey: airVel
+  hidingKey: hiding
 --- !u!1 &4555288054397925794
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   submoduleHolders:
   - {fileID: 7450916068291229434}
+  - {fileID: 4346384837646680420}
 --- !u!1 &4612331112496468417
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +755,8 @@ MonoBehaviour:
   _spotDetector: {fileID: 6637780407205802666}
   _hidingSpotTag: HidingSpot
   _hidingState: {fileID: 7812992624844603479}
+  _disableOnHideStart: []
+  _enableOnHideEnd: []
 --- !u!1 &5554909307592889560
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,9 +903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7450916068291229434}
-  - component: {fileID: 8195268571642882343}
   - component: {fileID: 2576415772537077402}
-  - component: {fileID: 671786258271895894}
   m_Layer: 0
   m_Name: Movement
   m_TagString: Untagged
@@ -874,22 +926,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2683966656141127127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8195268571642882343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6866432819890074965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed511b24e53b51a4396250db1130c70f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  priority: 10
-  inputReader: {fileID: 5020440357082625290}
-  toRotate: {fileID: 4715188974477058132}
-  rotationSpeed: 10
 --- !u!114 &2576415772537077402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,27 +941,8 @@ MonoBehaviour:
   priority: 8
   charaController: {fileID: 340775245454156804}
   applier: {fileID: 8332786457353650716}
-  jumpFunctionality: {fileID: 671786258271895894}
   aerialGravity: 9.8
   groundedGravity: 8
---- !u!114 &671786258271895894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6866432819890074965}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eec19586ca9f0249a465a176fdc0023, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  priority: 4
-  inputReader: {fileID: 5020440357082625290}
-  charaController: {fileID: 340775245454156804}
-  applier: {fileID: 8332786457353650716}
-  jumpForce: 8
-  cooldownTime: 0.25
 --- !u!1 &6871455331861604184
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hideCollHeight: 0.5
+  _hideCollCenter: {x: 0, y: 0.3, z: 0}
 --- !u!1 &6934762766129840300
 GameObject:
   m_ObjectHideFlags: 0
