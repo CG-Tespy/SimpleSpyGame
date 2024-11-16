@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
 	public float hoverButtonRatio;
 	public float buttonMoveDuration;
 	public float buttonMoveDelay;
+	public float buttonScaleDuration;
 	[SerializeField] Transform cube;
 	[SerializeField] SettingUI settingUI;
 
@@ -23,7 +24,9 @@ public class MainMenu : MonoBehaviour
 	private Vector3 originalButtonScale;
 	private bool isButtonInteractable;
 
-	private void Awake()
+    Sequence onButtonSequence;
+
+    private void Awake()
 	{
 		foreach (Button btn in buttons)
 		{
@@ -44,6 +47,7 @@ public class MainMenu : MonoBehaviour
 			.OnComplete(EnableButtons);
 
 		originalButtonScale = buttons[0].transform.localScale;
+		settingUI.transform.localScale = Vector3.zero;
 	}
 
 	public void NewGame()
@@ -55,12 +59,19 @@ public class MainMenu : MonoBehaviour
 	public void MouseOnButton(Button aButton)
 	{
 		if (!isButtonInteractable) return;
-		aButton.transform.DOScale(aButton.transform.localScale * hoverButtonRatio, 0.2f);
+
+		onButtonSequence = DOTween.Sequence();
+		onButtonSequence.Append(aButton.transform.DOScale(originalButtonScale * hoverButtonRatio, buttonScaleDuration)
+								.OnComplete(() => {
+									aButton.transform.DOScale(originalButtonScale, buttonScaleDuration);
+								}));
+		onButtonSequence.SetLoops(-1, LoopType.Yoyo);
 	}
 
 	public void MouseExitButton(Button aButton)
 	{
 		if (!isButtonInteractable) return;
+		onButtonSequence.Kill();
 		aButton.transform.DOScale(originalButtonScale, 0.2f);
 	}
 

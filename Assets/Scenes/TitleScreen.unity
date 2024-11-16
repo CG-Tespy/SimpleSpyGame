@@ -3195,6 +3195,7 @@ MonoBehaviour:
   hoverButtonRatio: 1.2
   buttonMoveDuration: 0.7
   buttonMoveDelay: 2
+  buttonScaleDuration: 0
   cube: {fileID: 560793702}
   settingUI: {fileID: 832186641}
 --- !u!1 &1425230822
