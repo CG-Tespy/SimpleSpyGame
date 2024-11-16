@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Hide",
+                    "type": "Button",
+                    "id": "2bccde4c-0883-446b-8b73-e007fd97197e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -214,6 +223,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "CrouchToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91866130-e143-4d20-b276-6f0bd1b22191",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8fb3948-4a32-43e2-bf9b-54106032dc44",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

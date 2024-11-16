@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CGT.CharacterControls
@@ -7,7 +8,10 @@ namespace CGT.CharacterControls
         [SerializeField] protected Animator _animator;
         [SerializeField] protected StateMachine _stateMachine;
 
-        [SerializeField] protected MotionState _idleState, _walkState, _runState, _sprintState;
+        [Header("States To Watch For")]
+        [SerializeField] protected MotionState _idleState;
+        [SerializeField] protected MotionState _walkState, _runState, _sprintState;
+        [SerializeField] protected State _hidingState;
 
         [SerializeField] protected UBCCMovementApplier _movementApplier;
         [SerializeField] protected GroundCheck _groundCheck;
@@ -23,17 +27,27 @@ namespace CGT.CharacterControls
         [SerializeField] protected string forwardMoveKey = "vert";
         [SerializeField] protected string inAirKey = "air";
         [SerializeField] protected string airVelKey = "airVel";
+        [SerializeField] protected string hidingKey = "hiding";
 
         protected virtual void Awake()
         {
             _animPrevSpeed = _animator.speed;
             _inputReader = GetComponentInParent<IMovementInputReader>();
             _steering = GetComponentInParent<LocomotionTracker>();
+
+            _animKeys = new List<string>()
+            {
+                horizMoveKey,
+                forwardMoveKey,
+                airVelKey,
+                hidingKey,
+            };
         }
 
         protected float _animPrevSpeed;
         protected IMovementInputReader _inputReader;
         protected LocomotionTracker _steering;
+        protected IList<string> _animKeys = new List<string>();
 
         protected virtual void Update()
         {
@@ -43,15 +57,27 @@ namespace CGT.CharacterControls
                 return;
             }
 
+            ResetAnimBools();
             UpdateMainMovementVal();
             UpdateCacheBasedOnInput();
             HandleHorizGroundAnims();
             HandleForwardGroundAnims();
             HandleAirAnims();
+            HandleHidingAnims();
+        }
+
+        protected virtual void ResetAnimBools()
+        {
+            foreach (string key in _animKeys)
+            {
+                _animator.SetBool(key, false);
+            }
         }
 
         protected virtual void UpdateMainMovementVal()
         {
+            _mainMovementVal = 0;
+
             bool charIsWalking = _walkState != null && _stateMachine.HasStateActive(_walkState);
             if (charIsWalking)
             {
@@ -159,6 +185,14 @@ namespace CGT.CharacterControls
         }
 
         protected static float minMove = -1, maxMove = 1;
+
+        protected virtual void HandleHidingAnims()
+        {
+            if (_stateMachine.HasStateActive(_hidingState))
+            {
+                _animator.SetBool(hidingKey, true);
+            }
+        }
 
         protected virtual void OnEnable()
         {

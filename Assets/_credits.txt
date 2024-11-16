@@ -40,6 +40,7 @@
 
 ~Animation~
 	Kevin Iglesias
+	Mixamo
 
 ~Special Thanks~
 	GameDevTV

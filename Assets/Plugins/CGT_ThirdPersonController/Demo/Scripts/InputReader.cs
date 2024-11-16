@@ -169,5 +169,10 @@ namespace CGT.PlayerMoveController
         {
             throw new System.NotImplementedException();
         }
+
+        public void OnHide(InputInfo context)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

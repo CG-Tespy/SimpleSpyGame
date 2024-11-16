@@ -75,5 +75,15 @@ namespace CGT.CharacterControls
         {
             // Ignore this. We can just let Cinemachine worry about this input
         }
+
+        public void OnHide(InputInfo context)
+        {
+            if (context.performed)
+            { 
+                HideStart();
+            }
+        }
+
+        public event Action HideStart = delegate { };
     }
 }
