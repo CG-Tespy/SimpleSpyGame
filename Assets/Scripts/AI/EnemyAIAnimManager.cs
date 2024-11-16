@@ -1,5 +1,4 @@
 using CGT;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
