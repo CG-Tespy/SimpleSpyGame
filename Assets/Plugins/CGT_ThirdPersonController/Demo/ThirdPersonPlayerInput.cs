@@ -71,6 +71,15 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hide"",
+                    ""type"": ""Button"",
+                    ""id"": ""2bccde4c-0883-446b-8b73-e007fd97197e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -238,6 +247,28 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                     ""action"": ""CrouchToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91866130-e143-4d20-b276-6f0bd1b22191"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8fb3948-4a32-43e2-bf9b-54106032dc44"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -262,6 +293,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         m_Overworld_Jump = m_Overworld.FindAction("Jump", throwIfNotFound: true);
         m_Overworld_Look = m_Overworld.FindAction("Look", throwIfNotFound: true);
         m_Overworld_CrouchToggle = m_Overworld.FindAction("CrouchToggle", throwIfNotFound: true);
+        m_Overworld_Hide = m_Overworld.FindAction("Hide", throwIfNotFound: true);
     }
 
     ~@ThirdPersonPlayerInput()
@@ -333,6 +365,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
     private readonly InputAction m_Overworld_Jump;
     private readonly InputAction m_Overworld_Look;
     private readonly InputAction m_Overworld_CrouchToggle;
+    private readonly InputAction m_Overworld_Hide;
     public struct OverworldActions
     {
         private @ThirdPersonPlayerInput m_Wrapper;
@@ -342,6 +375,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         public InputAction @Jump => m_Wrapper.m_Overworld_Jump;
         public InputAction @Look => m_Wrapper.m_Overworld_Look;
         public InputAction @CrouchToggle => m_Wrapper.m_Overworld_CrouchToggle;
+        public InputAction @Hide => m_Wrapper.m_Overworld_Hide;
         public InputActionMap Get() { return m_Wrapper.m_Overworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -366,6 +400,9 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
             @CrouchToggle.started += instance.OnCrouchToggle;
             @CrouchToggle.performed += instance.OnCrouchToggle;
             @CrouchToggle.canceled += instance.OnCrouchToggle;
+            @Hide.started += instance.OnHide;
+            @Hide.performed += instance.OnHide;
+            @Hide.canceled += instance.OnHide;
         }
 
         private void UnregisterCallbacks(IOverworldActions instance)
@@ -385,6 +422,9 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
             @CrouchToggle.started -= instance.OnCrouchToggle;
             @CrouchToggle.performed -= instance.OnCrouchToggle;
             @CrouchToggle.canceled -= instance.OnCrouchToggle;
+            @Hide.started -= instance.OnHide;
+            @Hide.performed -= instance.OnHide;
+            @Hide.canceled -= instance.OnHide;
         }
 
         public void RemoveCallbacks(IOverworldActions instance)
@@ -427,5 +467,6 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnCrouchToggle(InputAction.CallbackContext context);
+        void OnHide(InputAction.CallbackContext context);
     }
 }

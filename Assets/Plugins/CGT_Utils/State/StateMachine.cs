@@ -151,5 +151,31 @@ namespace CGT
         {
             return _activeStates.Contains(state);
         }
+    
+        public virtual void ExitAllActiveStates()
+        {
+            foreach (IState state in _activeStates)
+            {
+                state.Exit();
+            }
+        }
+
+        public virtual void Register(State state)
+        {
+            if (state == null)
+            {
+                Debug.LogError($"Cannot register a null state.");
+                return;
+            }
+
+            if (!_allStates.Contains(state))
+            {
+                _allStates.Add(state);
+                state.Init();
+                state.Entered += OnStateEntered;
+                state.Exited += OnStateExited;
+            }
+        }
+
     }
 }

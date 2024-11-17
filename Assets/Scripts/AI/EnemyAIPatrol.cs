@@ -1,11 +1,10 @@
 using CGT;
 using CGT.Utils;
-using System.Collections;
+using DG.Tweening;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using DG.Tweening;
-using NaughtyAttributes;
 
 namespace FightToTheLast
 {
@@ -16,11 +15,14 @@ namespace FightToTheLast
         [Tooltip("Holds the waypoints for the patrol route")]
         [SerializeField] protected Transform _holdsRoute;
 
+        [Header("States To Transition To")]
         [SerializeField] protected State _onWaypointReached;
+        [SerializeField] protected State _onTargetFound;
 
         [Header("For Debugging")]
-        [ReadOnly]
-        [SerializeField] protected Transform _targetWaypoint;
+        [ReadOnly] [SerializeField] protected Transform _targetWaypoint;
+        [ReadOnly] [SerializeField] protected List<Transform> _waypoints = new List<Transform>();
+        [ReadOnly] [SerializeField] protected int _targetWaypointIndex = -1;
 
         public override void Init()
         {
@@ -50,21 +52,18 @@ namespace FightToTheLast
             _waypoints.AddRange(reversedWaypoints);
         }
 
-
-        protected IList<Transform> _waypoints = new List<Transform>();
-
         public override void Enter(IState enteringFrom = null)
         {
             base.Enter(enteringFrom);
             // We want to go to the nearest waypoint before deciding on a series of paths. 
             // After all, we might've entered this state after we got done chasing something
-
+            _navAgent.speed = Settings.PatrolSpeed;
+            _navAgent.stoppingDistance = Settings.WaypointStoppingDistance;
+            _navAgent.isStopped = false;
             TargetTheNextWaypoint();
             UpdatePathToWaypoint();
             TurnBeforeGoingDownPath(ThenGoToTargetWaypoint);
         }
-
-        protected int _targetWaypointIndex = -1;
 
         protected virtual void UpdatePathToWaypoint()
         {
@@ -93,7 +92,18 @@ namespace FightToTheLast
         public override void ExecUpdate()
         {
             base.ExecUpdate();
-            bool closeEnough = _navAgent.remainingDistance <= 0.01f;
+
+            _targetSpotted = null;
+            CheckForTarget();
+
+            if (_targetSpotted != null && _onTargetFound != null)
+            {
+                _controller.Target = _targetSpotted;
+                TransitionTo(_onTargetFound);
+                return;
+            }
+
+            bool closeEnough = _navAgent.remainingDistance <= Settings.WaypointStoppingDistance + 0.01f;
             if (closeEnough && !PausedForTurning)
             {
                 if (_onWaypointReached != null)
@@ -108,6 +118,35 @@ namespace FightToTheLast
                 }
             }
         }
+
+        protected virtual void CheckForTarget()
+        {
+            Collider[] targetsFound = Physics.OverlapSphere(AgentPos, Settings.VisionRange, Settings.TargetLayers);
+            bool targetWithinTheRightDistance = targetsFound.Length > 0;
+            if (!targetWithinTheRightDistance)
+            {
+                return;
+            }
+
+            Transform targetToConsider = targetsFound[0].transform;
+            Vector3 towardsTarget = (targetToConsider.position - AgentPos).normalized;
+
+            bool inVisionConeArea = Vector3.Angle(AgentTrans.forward, towardsTarget) < Settings.VisionAngle / 2;
+
+            if (inVisionConeArea)
+            {
+                bool isViewObstructed = Physics.Raycast(AgentPos, towardsTarget,
+                    Settings.VisionRange, Settings.ObstacleLayers);
+
+                if (!isViewObstructed)
+                {
+                    _targetSpotted = targetToConsider;
+                    return;
+                }
+            }
+        }
+
+        protected Transform _targetSpotted;
 
         protected virtual void TargetTheNextWaypoint()
         {
@@ -124,16 +163,16 @@ namespace FightToTheLast
         public override void Exit()
         {
             base.Exit();
-
+            _targetSpotted = null;
             _navAgent.isStopped = PausedForTurning = true;
         }
 
         private void OnDrawGizmos()
         {
-            if (_toMove != null)
+            if (_toMove != null && SightOrigin != null)
             {
-                Vector3 startPoint = _toMove.position;
-                Vector3 endPoint = startPoint + (_toMove.forward * 5);
+                Vector3 startPoint = SightOrigin.position;
+                Vector3 endPoint = startPoint + (_toMove.forward * Settings.VisionRange);
                 Color prevColor = Gizmos.color;
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(startPoint, endPoint);

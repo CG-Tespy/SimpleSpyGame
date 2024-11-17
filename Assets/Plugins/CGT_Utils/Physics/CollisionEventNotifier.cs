@@ -116,5 +116,16 @@ namespace CGT.Events
         }
 
         public event UnityAction<GameObject> ParticleCollision = delegate { };
+
+        protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (!hit.collider.IsOnLayer(_layerMask)) { return; }
+            CCCollisionHit(hit);
+        }
+        /// <summary>
+        /// CharacterControllerCollisionHit
+        /// </summary>
+        public event UnityAction<ControllerColliderHit> CCCollisionHit = delegate { };
+
     }
 }

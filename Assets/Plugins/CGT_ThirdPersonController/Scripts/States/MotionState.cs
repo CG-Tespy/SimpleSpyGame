@@ -1,4 +1,3 @@
-using CGT.PlayerMoveController;
 using UnityEngine;
 
 namespace CGT.CharacterControls

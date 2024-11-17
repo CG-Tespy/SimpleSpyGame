@@ -6,7 +6,6 @@ namespace CGT.CharacterControls
     {
         [SerializeField] protected CharacterController charaController;
         [SerializeField] protected UBCCMovementApplier applier;
-        [SerializeField] protected UBCCJump jumpFunctionality;
         [SerializeField] protected float aerialGravity = 9.8f;
         [SerializeField] protected float groundedGravity = 8f;
 
