@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using CGT.Myceliaudio;
 
 public class SettingUI : MonoBehaviour
 {
@@ -10,9 +11,6 @@ public class SettingUI : MonoBehaviour
 	[SerializeField] Slider bgmSlider; 
 	[SerializeField] Slider sfxSlider;
 	[SerializeField] MainMenu mainMenu;
-
-	[SerializeField] AudioSource bgmSource;
-	[SerializeField] AudioSource sfxSource;
 
 	[SerializeField] TMP_Text bgmValue;
 	[SerializeField] TMP_Text sfxValue;
@@ -24,14 +22,16 @@ public class SettingUI : MonoBehaviour
 
     private void Start()
 	{
-		bgmSlider.value = bgmSource.volume;
-		sfxSlider.value = sfxSource.volume;
+		bgmSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.BGMusic);
+		sfxSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.SoundFX);
+		Debug.Log(bgmSlider.value);
+		Debug.Log(sfxSlider.value);
 	}
 
 	private void Update()
 	{
-		bgmSource.volume = bgmSlider.value;
-		sfxSource.volume = sfxSlider.value;
+		AudioSystem.S.SetTrackVol(TrackGroup.BGMusic, 0, bgmSlider.value * 100);
+		AudioSystem.S.SetTrackVol(TrackGroup.SoundFX, 0, sfxSlider.value * 100);
 		bgmValue.text = ((int)(bgmSlider.value * 100)).ToString() + " / 100";
 		sfxValue.text = ((int)(sfxSlider.value * 100)).ToString() + " / 100";
 	}

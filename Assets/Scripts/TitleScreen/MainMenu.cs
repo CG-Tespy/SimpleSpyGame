@@ -2,21 +2,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using CGT.Myceliaudio;
 
 public class MainMenu : MonoBehaviour
 {
 	public string NextSceneName;
-	public float rotatePeriod;
+	public float cubeRotateDuration;
+
+
+	[Header("Buttons")]
 	public Transform buttonParent;
 	public Button startButton;
 	public Button settingButton;
 	public Button exitButton;
 	public Button[] buttons;
 
+	[Header("Button Variable")]
 	public float hoverButtonRatio;
 	public float buttonMoveDuration;
 	public float buttonMoveDelay;
 	public float buttonScaleDuration;
+
+	[Header("")]
+	[SerializeField] TitleScreenSFX titleScreenSFX;
 	[SerializeField] Transform cube;
 	[SerializeField] SettingUI settingUI;
 
@@ -36,7 +44,7 @@ public class MainMenu : MonoBehaviour
 
 	private void Start()
 	{
-		cube.DORotate(new Vector3(360, 360, 0), rotatePeriod, RotateMode.FastBeyond360)
+		cube.DORotate(new Vector3(360, 360, 0), cubeRotateDuration, RotateMode.FastBeyond360)
 			.SetLoops(-1, LoopType.Restart)
 			.SetEase(Ease.Linear);
 
@@ -60,6 +68,9 @@ public class MainMenu : MonoBehaviour
 	{
 		if (!isButtonInteractable) return;
 
+		AudioSystem.S.Play(titleScreenSFX.hoverBtnArgs);
+
+		// Setup growing and shrinking Tween
 		onButtonSequence = DOTween.Sequence();
 		onButtonSequence.Append(aButton.transform.DOScale(originalButtonScale * hoverButtonRatio, buttonScaleDuration)
 								.OnComplete(() => {
@@ -78,6 +89,7 @@ public class MainMenu : MonoBehaviour
 	public void Setting()
 	{
 		Debug.Log("Open Setting Page");
+		onButtonSequence.Kill();
 		DisenableButtons();
 		buttonParent.
 			DOLocalMoveX(500, buttonMoveDuration).
