@@ -8,13 +8,18 @@ namespace FightToTheLast
 {
     public class PlayerHideTrigger : MonoBehaviour
     {
-        
+        [SerializeField] protected Transform _mainBody;
         [Tooltip("Helps us know when we're in range of a hiding spot")]
         [SerializeField] protected Collider _spotDetector;
         [SerializeField] [Tag] protected string _hidingSpotTag;
         [SerializeField] protected State _hidingState;
         [SerializeField] protected GameObject[] _disableOnHideStart;
         [SerializeField] private GameObject[] _enableOnHideEnd;
+
+        [Tooltip("How far to rotate the player relative to the rotation of the hiding spot")]
+        [SerializeField] protected Vector3 _rotationMultipliers = Vector3.one;
+        // ^We use multipliers instead of absolute offsets to account for when a hiding spot's
+        // rotation is negative on any axis
 
         protected virtual void Awake()
         {
@@ -67,9 +72,16 @@ namespace FightToTheLast
         {
             if (_hidingSpotInRange && !_stateMachine.HasStateActive(_hidingState))
             {
-                _stateMachine.ExitAllStates();
+                _stateMachine.ExitAllActiveStates();
                 _hidingState.Enter();
 
+                Vector3 newRotation = _hidingSpotInRange.localEulerAngles;
+                newRotation.x *= _rotationMultipliers.x;
+                newRotation.y *= _rotationMultipliers.y;
+                newRotation.z *= _rotationMultipliers.z;
+
+                _mainBody.localEulerAngles = newRotation;
+                
                 foreach (GameObject gameObjectEl in _disableOnHideStart)
                 {
                     gameObjectEl.SetActive(false);

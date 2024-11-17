@@ -152,7 +152,7 @@ namespace CGT
             return _activeStates.Contains(state);
         }
     
-        public virtual void ExitAllStates()
+        public virtual void ExitAllActiveStates()
         {
             foreach (IState state in _activeStates)
             {

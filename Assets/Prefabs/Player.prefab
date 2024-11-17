@@ -507,7 +507,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5869304431621051337}
-  - component: {fileID: 1177274483581293834}
   - component: {fileID: 750378650385011639}
   m_Layer: 0
   m_Name: Animation
@@ -531,30 +530,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2683966656141127127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1177274483581293834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3329392932527816472}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34d9fae3abec2a04dbbdcf675181568e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4696945131697394049}
-  movementApplier: {fileID: 0}
-  charaController: {fileID: 340775245454156804}
-  locomotion: {fileID: 0}
-  moveSpeed: {fileID: 0}
-  _transitionSpeed: 5
-  runVal: 0.5
-  sprintVal: 1
-  horizMoveKey: horiz
-  vertMoveKey: vert
-  inAirKey: air
-  airVelKey: airVel
 --- !u!114 &750378650385011639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +548,7 @@ MonoBehaviour:
   _walkState: {fileID: 5498123410578913305}
   _runState: {fileID: 3810119165349721985}
   _sprintState: {fileID: 8117345872892506824}
-  _hidingState: {fileID: 0}
+  _hidingState: {fileID: 7812992624844603479}
   _movementApplier: {fileID: 8332786457353650716}
   _groundCheck: {fileID: 8951719238959360343}
   _transitionSpeed: 5
@@ -584,7 +559,7 @@ MonoBehaviour:
   forwardMoveKey: vert
   inAirKey: air
   airVelKey: airVel
-  hidingKey: hiding
+  hidingKey: hide
 --- !u!1 &4555288054397925794
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,11 +727,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4254fce3c50a8c845bad28ebd3036f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainBody: {fileID: 4715188974477058132}
   _spotDetector: {fileID: 6637780407205802666}
   _hidingSpotTag: HidingSpot
   _hidingState: {fileID: 7812992624844603479}
-  _disableOnHideStart: []
-  _enableOnHideEnd: []
+  _disableOnHideStart:
+  - {fileID: 2992889304816599545}
+  _enableOnHideEnd:
+  - {fileID: 2992889304816599545}
 --- !u!1 &5554909307592889560
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +965,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d718c0796d61344449bff7cf0b71020a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _changeCollHeight: 0
   _hideCollHeight: 0.5
+  _changeCollCenter: 0
   _hideCollCenter: {x: 0, y: 0.3, z: 0}
 --- !u!1 &6934762766129840300
 GameObject:
@@ -1552,6 +1532,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400154, guid: bdd7a03fd93bf2d4cb6babd63ceabee8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: bdd7a03fd93bf2d4cb6babd63ceabee8, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
