@@ -56,7 +56,7 @@ public class SettingUI : MonoBehaviour
 		{
 			gameObject.SetActive(false);
             mainMenu.buttonParent.
-                DOLocalMoveX(200, mainMenu.buttonMoveDuration).
+                DOLocalMoveX(640, mainMenu.buttonMoveDuration).
                 SetEase(Ease.OutBack).
 				OnComplete(mainMenu.EnableButtons);
         });

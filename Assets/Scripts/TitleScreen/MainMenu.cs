@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour
 			.SetEase(Ease.Linear);
 
 		buttonParent
-			.DOLocalMoveX(200, buttonMoveDuration)
+			.DOLocalMoveX(640, buttonMoveDuration)
 			.SetEase(Ease.OutBack)
 			.SetDelay(buttonMoveDelay)
 			.OnComplete(EnableButtons);
@@ -91,8 +91,18 @@ public class MainMenu : MonoBehaviour
 		Debug.Log("Open Setting Page");
 		onButtonSequence.Kill();
 		DisenableButtons();
+		MoveOutButton();
+	}
+
+	public void MoveInButton()
+	{ 
+	
+	}
+
+	public void MoveOutButton()
+	{ 
 		buttonParent.
-			DOLocalMoveX(500, buttonMoveDuration).
+			DOLocalMoveX(1340, buttonMoveDuration).
 			SetEase(Ease.InBack).
 			OnComplete(()=> {
                 settingUI.gameObject.SetActive(true);
