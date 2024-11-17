@@ -7,11 +7,16 @@ using CGT.Myceliaudio;
 public class SettingUI : MonoBehaviour
 {
 	[SerializeField] float popDuration;
+	[SerializeField] MainMenu mainMenu;
 	[SerializeField] Button closeButton; 
+
+	[Header("Sliders")]
+	[SerializeField] Slider masterSlider;
 	[SerializeField] Slider bgmSlider; 
 	[SerializeField] Slider sfxSlider;
-	[SerializeField] MainMenu mainMenu;
 
+	[Header("Text")]
+	[SerializeField] TMP_Text masterValue;
 	[SerializeField] TMP_Text bgmValue;
 	[SerializeField] TMP_Text sfxValue;
 
@@ -22,16 +27,20 @@ public class SettingUI : MonoBehaviour
 
     private void Start()
 	{
-		bgmSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.BGMusic);
-		sfxSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.SoundFX);
-		Debug.Log(bgmSlider.value);
-		Debug.Log(sfxSlider.value);
+		masterSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.Master) / AudioMath.MaxVol;
+		bgmSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.BGMusic) / AudioMath.MaxVol;
+		sfxSlider.value = AudioSystem.S.GetTrackVol(TrackGroup.SoundFX) / AudioMath.MaxVol;
+		Debug.Log("Mater Vol: " + masterSlider.value);
+		Debug.Log("BGMusic Vol: " + bgmSlider.value);
+		Debug.Log("SoundFX Vol: " + sfxSlider.value);
 	}
 
 	private void Update()
 	{
-		AudioSystem.S.SetTrackVol(TrackGroup.BGMusic, 0, bgmSlider.value * 100);
-		AudioSystem.S.SetTrackVol(TrackGroup.SoundFX, 0, sfxSlider.value * 100);
+		AudioSystem.S.SetTrackVol(TrackGroup.Master, 0, masterSlider.value * AudioMath.MaxVol);
+		AudioSystem.S.SetTrackVol(TrackGroup.BGMusic, 0, bgmSlider.value * AudioMath.MaxVol);
+		AudioSystem.S.SetTrackVol(TrackGroup.SoundFX, 0, sfxSlider.value * AudioMath.MaxVol);
+		masterValue.text = ((int)(masterSlider.value * 100)).ToString() + " / 100";
 		bgmValue.text = ((int)(bgmSlider.value * 100)).ToString() + " / 100";
 		sfxValue.text = ((int)(sfxSlider.value * 100)).ToString() + " / 100";
 	}
