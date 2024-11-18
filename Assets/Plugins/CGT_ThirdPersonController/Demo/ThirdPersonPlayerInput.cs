@@ -75,7 +75,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                 {
                     ""name"": ""Hide"",
                     ""type"": ""Button"",
-                    ""id"": ""2bccde4c-0883-446b-8b73-e007fd97197e"",
+                    ""id"": ""ad501ac0-97b1-47bf-928e-48e73edf867a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -250,19 +250,8 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                 },
                 {
                     ""name"": """",
-                    ""id"": ""91866130-e143-4d20-b276-6f0bd1b22191"",
+                    ""id"": ""a711f7c1-8535-48d8-80e6-9c9fdb01b864"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hide"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e8fb3948-4a32-43e2-bf9b-54106032dc44"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

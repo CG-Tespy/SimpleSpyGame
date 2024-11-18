@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using InputInfo = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace CGT.CharacterControls
@@ -10,7 +11,6 @@ namespace CGT.CharacterControls
         protected virtual void Awake()
         {
             _controls = new ThirdPersonPlayerInput();
-            _controls.Overworld.SetCallbacks(this);
         }
 
         protected ThirdPersonPlayerInput _controls;
@@ -18,11 +18,13 @@ namespace CGT.CharacterControls
         protected virtual void OnEnable()
         {
             _controls.Overworld.Enable();
+            _controls.Overworld.SetCallbacks(this);
         }
 
         protected virtual void OnDisable()
         {
             _controls.Overworld.Disable();
+            _controls.Overworld.RemoveCallbacks(this);
         }
 
         public virtual void OnJump(InputInfo context)
@@ -42,6 +44,11 @@ namespace CGT.CharacterControls
         
         public virtual void OnMove(InputInfo context)
         {
+            if (!context.action.enabled)
+            {
+                return;
+            }
+
             CurrentMovementInput = context.ReadValue<Vector2>();
         }
 
@@ -85,5 +92,17 @@ namespace CGT.CharacterControls
         }
 
         public event Action HideStart = delegate { };
+
+        public virtual void Disable(string actionName)
+        {
+            InputAction actionToDisable = _controls.FindAction(actionName, true);
+            actionToDisable.Disable();
+        }
+
+        public virtual void Enable(string actionName)
+        {
+            InputAction actionToEnable = _controls.FindAction(actionName, true);
+            actionToEnable.Enable();
+        }
     }
 }
