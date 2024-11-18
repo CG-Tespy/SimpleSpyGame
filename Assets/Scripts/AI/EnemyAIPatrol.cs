@@ -74,7 +74,14 @@ namespace FightToTheLast
         protected virtual void TurnBeforeGoingDownPath(TweenCallback onDoneTurning)
         {
             PausedForTurning = true;
-            Vector3 nextCorner = _toWaypoint.corners[1];
+            int cornerIndex = 0;
+
+            if (_toWaypoint.corners.Length > 1)
+            {
+                cornerIndex = 1;
+            }
+
+            Vector3 nextCorner = _toWaypoint.corners[cornerIndex];
             // ^Not sure why this only works when the index is 1, but hey
             AgentTrans.DOLookAt(nextCorner, Settings.PatrolTurnDur)
                 .OnComplete(onDoneTurning);
