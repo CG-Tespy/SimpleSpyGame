@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 4696945131697394049}
   - component: {fileID: 340775245454156804}
   - component: {fileID: 803890702308604009}
+  - component: {fileID: 2687545519662679214}
   - component: {fileID: 8383073649494886683}
   - component: {fileID: 2951293283021301853}
   - component: {fileID: 8332786457353650716}
@@ -337,6 +338,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc4ef455f19f1d429f8701ea3002b8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2687545519662679214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896156154093660856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141c5aa10396081488a3494f4484924e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hidingState: {fileID: 7812992624844603479}
 --- !u!114 &8383073649494886683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,7 +748,12 @@ MonoBehaviour:
   _hidingState: {fileID: 7812992624844603479}
   _disableOnHideStart: []
   _enableOnHideEnd: []
+  _spotSwapRadius: 7
   _rotationMultipliers: {x: 1, y: 1.5, z: 1}
+  _spotJumpDetectorRadius: 5
+  _onHideExit: {fileID: 3029674261181806248}
+  _hidingSpotToMoveTo: {fileID: 0}
+  _hidingSpotWeAreIn: {fileID: 0}
 --- !u!1 &5554909307592889560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +1061,6 @@ MonoBehaviour:
   _hideCollHeight: 0.5
   _changeCollCenter: 0
   _hideCollCenter: {x: 0, y: 0.3, z: 0}
-  _triggerOnExit: {fileID: 3029674261181806248}
 --- !u!1 &6934762766129840300
 GameObject:
   m_ObjectHideFlags: 0

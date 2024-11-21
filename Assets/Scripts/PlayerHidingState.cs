@@ -13,9 +13,6 @@ namespace FightToTheLast
         [SerializeField] protected bool _changeCollCenter = true;
         [SerializeField] protected Vector3 _hideCollCenter = Vector3.zero;
 
-        [Tooltip("Which state to enter when the right input makes this one exit")]
-        [SerializeField] protected State _triggerOnExit;
-
         public override void Init()
         {
             base.Init();
@@ -23,20 +20,17 @@ namespace FightToTheLast
             _origCollHeight = _charaController.height;
             _origCollCenter = _charaController.center;
             _moveApplier = GetComponentInParent<UBCCMovementApplier>();
-            _inputReader = GetComponentInParent<AltInputReader>();
         }
 
         protected CharacterController _charaController;
         protected float _origCollHeight;
         protected Vector3 _origCollCenter;
         protected UBCCMovementApplier _moveApplier;
-        protected AltInputReader _inputReader;
 
         public override void Enter(IState enteringFrom = null)
         {
             base.Enter(enteringFrom);
             Debug.Log($"Entered hiding state");
-            _inputReader.HideStart += OnHideInputStart;
 
             if (_changeCollHeight)
             {
@@ -49,20 +43,12 @@ namespace FightToTheLast
             }
 
             _moveApplier.XMovement = _moveApplier.ZMovement = 0;
-        }
-
-        protected virtual void OnHideInputStart()
-        {
-            if (_triggerOnExit != null)
-            {
-                TransitionTo(_triggerOnExit);
-            }
+            // ^ To stop any ground movement
         }
 
         public override void Exit()
         {
             base.Exit();
-            _inputReader.HideStart -= OnHideInputStart;
 
             if (_changeCollHeight)
             {

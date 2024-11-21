@@ -104,5 +104,15 @@ namespace CGT.CharacterControls
             InputAction actionToEnable = _controls.FindAction(actionName, true);
             actionToEnable.Enable();
         }
+
+        public void OnCancelHide(InputInfo context)
+        {
+            if (context.started)
+            {
+                CancelHideStart();
+            }
+        }
+
+        public event Action CancelHideStart = delegate { };
     }
 }

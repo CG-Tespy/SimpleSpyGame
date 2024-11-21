@@ -84,6 +84,9 @@ namespace CGT
         protected virtual void OnDisable()
         {
             UNlistenForStateEvents();
+            _activeStates = (from stateEl in _activeStates
+                             where stateEl != null
+                             select stateEl).ToList();
             foreach (var state in _activeStates)
             {
                 state.Exit();
