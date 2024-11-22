@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 using CGT.Myceliaudio;
 
@@ -12,9 +13,9 @@ public class MainMenu : MonoBehaviour
 
 	[Header("Buttons")]
 	public Transform buttonParent;
-	public Button startButton;
-	public Button settingButton;
-	public Button exitButton;
+	public GameObject startButton;
+	public GameObject settingButton;
+	public GameObject exitButton;
 	public Button[] buttons;
 
 	[Header("Button Variable")]
@@ -28,11 +29,11 @@ public class MainMenu : MonoBehaviour
 	[SerializeField] Transform cube;
 	[SerializeField] SettingUI settingUI;
 
-
+	private GameObject currentSelectedObject;
 	private Vector3 originalButtonScale;
 	private bool isButtonInteractable;
 
-    Sequence onButtonSequence;
+    Sequence onButtonSequence; // For button growing and shrinking
 
     private void Awake()
 	{
@@ -56,9 +57,13 @@ public class MainMenu : MonoBehaviour
 
 		originalButtonScale = buttons[0].transform.localScale;
 		settingUI.transform.localScale = Vector3.zero;
+
+		EventSystem.current.SetSelectedGameObject(startButton);
+		startButton.GetComponent<Button>().Select();
+		currentSelectedObject = EventSystem.current.currentSelectedGameObject;
 	}
 
-	public void NewGame()
+    public void NewGame()
 	{
 		DOTween.Clear();
 		SceneManager.LoadScene(NextSceneName);
@@ -67,23 +72,26 @@ public class MainMenu : MonoBehaviour
 	public void MouseOnButton(Button aButton)
 	{
 		if (!isButtonInteractable) return;
+		currentSelectedObject = aButton.gameObject;
+        AudioSystem.S.Play(titleScreenSFX.hoverBtnArgs);
 
-		AudioSystem.S.Play(titleScreenSFX.hoverBtnArgs);
+		onButtonSequence.Kill(); // For avoiding issue when using both mouse and gamepad
+        // Setup growing and shrinking Tween
+        onButtonSequence = DOTween.Sequence();
+        onButtonSequence.Append(currentSelectedObject.transform.DOScale(originalButtonScale * hoverButtonRatio, buttonScaleDuration)
+                                .OnComplete(() =>
+                                {
+                                    currentSelectedObject.transform.DOScale(originalButtonScale, buttonScaleDuration);
+                                }));
+        onButtonSequence.SetLoops(-1, LoopType.Yoyo);
+    }
 
-		// Setup growing and shrinking Tween
-		onButtonSequence = DOTween.Sequence();
-		onButtonSequence.Append(aButton.transform.DOScale(originalButtonScale * hoverButtonRatio, buttonScaleDuration)
-								.OnComplete(() => {
-									aButton.transform.DOScale(originalButtonScale, buttonScaleDuration);
-								}));
-		onButtonSequence.SetLoops(-1, LoopType.Yoyo);
-	}
-
-	public void MouseExitButton(Button aButton)
+    public void MouseExitButton(Button aButton)
 	{
 		if (!isButtonInteractable) return;
 		onButtonSequence.Kill();
 		aButton.transform.DOScale(originalButtonScale, 0.2f);
+		currentSelectedObject = null;
 	}
 
 	public void Setting()
@@ -96,7 +104,10 @@ public class MainMenu : MonoBehaviour
 
 	public void MoveInButton()
 	{ 
-	
+		buttonParent
+			.DOLocalMoveX(640, buttonMoveDuration)
+			.SetEase(Ease.OutBack)
+			.OnComplete(EnableButtons);
 	}
 
 	public void MoveOutButton()
@@ -117,6 +128,7 @@ public class MainMenu : MonoBehaviour
 
 	public void EnableButtons()
 	{
+		EventSystem.current.SetSelectedGameObject(startButton);
 		isButtonInteractable = true;
 		foreach (Button btn in buttons)
 		{
