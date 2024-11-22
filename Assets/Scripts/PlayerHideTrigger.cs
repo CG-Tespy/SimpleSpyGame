@@ -189,8 +189,8 @@ namespace FightToTheLast
             Physics.OverlapSphereNonAlloc(_mainBody.position, _spotSwapRadius, hits);
 
             _hidingSpotToMoveTo = (from hitEl in hits
-                                  where hitEl != null
-                                  where hitEl.CompareTag(_hidingSpotTag)
+                                  where hitEl != null && hitEl.transform != _hidingSpotWeAreIn
+                                  && hitEl.CompareTag(_hidingSpotTag)
                                   select hitEl.transform).FirstOrDefault();
 
             if (_hidingSpotToMoveTo != null)
