@@ -114,5 +114,16 @@ namespace CGT.CharacterControls
         }
 
         public event Action CancelHideStart = delegate { };
+
+        public void OnThirdEye(InputInfo context)
+        {
+            if (context.started)
+            {
+                ThirdEyeToggleStart();
+            }
+        }
+
+        public event Action ThirdEyeToggleStart = delegate { };
+
     }
 }
