@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using TMPro;
 
 public class Tutorial : MonoBehaviour
@@ -31,6 +32,7 @@ public class Tutorial : MonoBehaviour
     { 
         currentTask = tasks[0];
         currentTask.gameObject.SetActive(true);
+        currentTask.text.DOText(currentTask.taskText, 1f);
         tasks.RemoveAt(0);
 	}
 
@@ -46,6 +48,7 @@ public class Tutorial : MonoBehaviour
         currentTask.gameObject.SetActive(false);
         currentTask = tasks[0];
         currentTask.gameObject.SetActive(true);
+        currentTask.text.DOText(currentTask.taskText, 1f);
         tasks.RemoveAt(0);
 	}
 }
