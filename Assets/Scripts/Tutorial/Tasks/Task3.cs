@@ -8,7 +8,6 @@ public class Task3 : Task
         {
             return true;
 		}
-
         return false;
 	}
 }

@@ -5,6 +5,7 @@ using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
+    [SerializeField] GameObject player;
     [SerializeField] private List<Task> tasks;
     private Task currentTask;
 
@@ -12,6 +13,7 @@ public class Tutorial : MonoBehaviour
     {
         foreach (var t in tasks)
         {
+            t.tutorial = this;
             t.gameObject.SetActive(false);
 		}
         GetFirstTask();
