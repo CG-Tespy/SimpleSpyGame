@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 namespace SimpleSpyGame
 {
@@ -81,6 +82,7 @@ namespace SimpleSpyGame
                 cornerIndex = 1;
             }
 
+            Debug.Log($"{_navAgent.name} going to corner at index {cornerIndex}");
             Vector3 nextCorner = _toWaypoint.corners[cornerIndex];
             // ^Not sure why this only works when the index is 1, but hey
             AgentTrans.DOLookAt(nextCorner, Settings.PatrolTurnDur)
@@ -128,15 +130,21 @@ namespace SimpleSpyGame
 
         protected virtual void CheckForTarget()
         {
-            Collider[] targetsFound = Physics.OverlapSphere(AgentPos, Settings.VisionRange, Settings.TargetLayers);
-            bool targetWithinTheRightDistance = targetsFound.Length > 0;
-            if (!targetWithinTheRightDistance)
+            _targetsFound.Clear();
+            Physics.OverlapSphereNonAlloc(AgentPos, Settings.VisionRange, _targetsFound, Settings.TargetLayers);
+
+            StealthPlayerController targetToConsider = (from target in _targetsFound
+                             where target != null && target.GetComponent<StealthPlayerController>() != null
+                             select target.GetComponent<StealthPlayerController>()).FirstOrDefault();
+
+            bool targetWithinTheRightDistance = targetToConsider != null,
+                targetHiding = targetToConsider != null && targetToConsider.IsHiding;
+            if (!targetWithinTheRightDistance || targetHiding)
             {
                 return;
             }
 
-            Transform targetToConsider = targetsFound[0].transform;
-            Vector3 towardsTarget = (targetToConsider.position - AgentPos).normalized;
+            Vector3 towardsTarget = (targetToConsider.transform.position - AgentPos).normalized;
 
             bool inVisionConeArea = Vector3.Angle(AgentTrans.forward, towardsTarget) < Settings.VisionAngle / 2;
 
@@ -147,11 +155,14 @@ namespace SimpleSpyGame
 
                 if (!isViewObstructed)
                 {
-                    _targetSpotted = targetToConsider;
+                    _targetSpotted = targetToConsider.transform;
+                    StageEvents.PlayerCaught();
                     return;
                 }
             }
         }
+
+        protected Collider[] _targetsFound = new Collider[5];
 
         protected Transform _targetSpotted;
 

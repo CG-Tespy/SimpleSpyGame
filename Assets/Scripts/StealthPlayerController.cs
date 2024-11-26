@@ -13,6 +13,9 @@ namespace SimpleSpyGame
         [SerializeField] protected State _hidingState;
         [SerializeField] protected State _onHideExit;
 
+        [Tooltip("Caught by an enemy, that is")]
+        [SerializeField] protected GameObject[] _disableIfCaught = new GameObject[] { };
+
         protected virtual void Awake()
         {
             FindComponents();
@@ -31,21 +34,24 @@ namespace SimpleSpyGame
             _stateMachine = GetComponent<StateMachine>();
             _spotDetector = GetComponentInChildren<HidingSpotDetector>();
             _spotTraversal = GetComponentInChildren<HidingSpotTraversal>();
+            _charaController = GetComponent<CharacterController>();
         }
 
         protected StateMachine _stateMachine;
         protected HidingSpotDetector _spotDetector;
         protected HidingSpotTraversal _spotTraversal;
+        protected CharacterController _charaController;
         
         protected virtual void OnEnable()
         {
             _inputReader.HideStart += OnHideStartInput;
             _inputReader.CancelHideStart += OnCancelHideStart;
+            StageEvents.PlayerCaught += OnPlayerCaught;
         }
 
         protected virtual void OnHideStartInput()
         {
-            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing)
+            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing || IsSpotted)
             {
                 return;
             }
@@ -72,6 +78,8 @@ namespace SimpleSpyGame
             }
         }
 
+        public virtual bool IsSpotted { get; set; }
+
         public virtual bool IsHiding
         {
             get { return _isHiding; }
@@ -86,7 +94,7 @@ namespace SimpleSpyGame
 
         protected virtual void OnCancelHideStart()
         {
-            if (!IsHiding || _onHideExit == null || _spotTraversal.IsTraversing)
+            if (IsSpotted || !IsHiding || _onHideExit == null || _spotTraversal.IsTraversing)
             {
                 return;
             }
@@ -98,10 +106,21 @@ namespace SimpleSpyGame
             _onHideExit.Enter();
         }
 
+        protected virtual void OnPlayerCaught()
+        {
+            _charaController.enabled = false;
+
+            foreach (var toDisable in _disableIfCaught)
+            {
+                toDisable.SetActive(false);
+            }
+        }
+
         protected virtual void OnDisable()
         {
             _inputReader.HideStart -= OnHideStartInput;
             _inputReader.CancelHideStart -= OnCancelHideStart;
+            StageEvents.PlayerCaught -= OnPlayerCaught;
         }
 
     }

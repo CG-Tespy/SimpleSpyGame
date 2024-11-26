@@ -69,6 +69,7 @@ namespace SimpleSpyGame
         {
             IsTraversing = true;
             _charaController.enabled = false; // <- So physics doesn't get in the way
+            _agent.isStopped = true;
 
            Vector3 endRot = GetEndRotation(hidingSpot);
 
@@ -83,6 +84,7 @@ namespace SimpleSpyGame
             else
             {
                 // We'll want smooth movement on the nav mesh to the hiding spot
+                _agent.enabled = true;
                 NavMeshPath path = new NavMeshPath();
                 NavMesh.CalculatePath(_agent.transform.position, hidingSpot.position, NavMesh.AllAreas, path);
                 _agent.isStopped = false;

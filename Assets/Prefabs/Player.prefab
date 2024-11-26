@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d2b5d5a9e58fc48a92b842eae299d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationMultipliers: {x: 1, y: 1.5, z: 1}
+  _rotationMultipliers: {x: 1, y: 1, z: 1}
   _hasVisuals: {fileID: 5474683036235402197}
   _teleportationVfxPrefab: {fileID: 768880822954465800, guid: 992d51643c05c114abeed5f0f00246eb,
     type: 3}
@@ -377,6 +377,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7731724627316516409}
+  - {fileID: 4747108331052809258}
   - {fileID: 9209170569823735060}
   - {fileID: 7450916068291229434}
   - {fileID: 3912357502849222725}
@@ -385,7 +386,6 @@ Transform:
   - {fileID: 4674517861848944817}
   - {fileID: 4346384837646680420}
   - {fileID: 1902510064449545046}
-  - {fileID: 4747108331052809258}
   - {fileID: 6972647144532458455}
   m_Father: {fileID: 4715188974477058132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -474,13 +474,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.55
-  m_Radius: 0.24
-  m_SlopeLimit: 65
+  m_Height: 1.8
+  m_Radius: 0.35
+  m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.07
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.78, z: 0}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!195 &1546181011885289192
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -530,6 +530,14 @@ MonoBehaviour:
   _inputReader: {fileID: 803890702308604009}
   _hidingState: {fileID: 7812992624844603479}
   _onHideExit: {fileID: 3029674261181806248}
+  _disableIfCaught:
+  - {fileID: 7781410884245284215}
+  - {fileID: 6866432819890074965}
+  - {fileID: 4612331112496468417}
+  - {fileID: 6057046126084897198}
+  - {fileID: 2992889304816599545}
+  - {fileID: 5615031260399255024}
+  - {fileID: 3517560779632911438}
   _isHiding: 0
 --- !u!114 &8383073649494886683
 MonoBehaviour:
@@ -825,7 +833,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3517560779632911438}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
