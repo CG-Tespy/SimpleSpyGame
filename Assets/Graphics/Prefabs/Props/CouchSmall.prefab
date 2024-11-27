@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5064502681924525080}
   - component: {fileID: 8782013071791466484}
   - component: {fileID: 1688389524886371514}
+  - component: {fileID: 4407987834336961961}
   m_Layer: 0
   m_Name: CouchSmall
   m_TagString: Untagged
@@ -83,3 +84,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4407987834336961961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5891298093298427668}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1611855, y: 1.0984492, z: 0.97650516}
+  m_Center: {x: 0, y: 0.5492246, z: 0.13439971}
