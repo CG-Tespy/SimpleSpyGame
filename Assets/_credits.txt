@@ -37,6 +37,9 @@
 	Batewar
 	Supercyan
 	IgniteCoders
+	Lukas Bobor
+	AK Studio Art
+	Matthew Guz
 
 ~Animation~
 	Kevin Iglesias
@@ -48,4 +51,5 @@
 	Jacqueline Castro
 	Rafael Romero
 	Conrado Saud
+	Chris Kurhan (AKA Llama Academy)
 
