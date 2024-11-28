@@ -313,7 +313,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                 {
                     ""name"": """",
                     ""id"": ""8dc479be-adef-459c-ad4c-8fb660a525ff"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";MouseAndKeyboard"",
