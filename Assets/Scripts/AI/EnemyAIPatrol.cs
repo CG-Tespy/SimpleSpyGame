@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class EnemyAIPatrol : EnemyAIState
     {

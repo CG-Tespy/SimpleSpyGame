@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class EnemyAIController : MonoBehaviour
     {

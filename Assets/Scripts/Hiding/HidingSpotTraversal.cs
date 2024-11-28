@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class HidingSpotTraversal : MonoBehaviour
     {

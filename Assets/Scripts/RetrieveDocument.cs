@@ -1,7 +1,7 @@
 using CGT.Events;
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class RetrieveDocument : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class PlayerHideTrigger : MonoBehaviour
     {

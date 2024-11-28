@@ -2,7 +2,7 @@ using CGT;
 using CGT.CharacterControls;
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class PlayerHidingState : State
     {
