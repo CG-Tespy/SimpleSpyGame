@@ -117,7 +117,7 @@ namespace CGT.CharacterControls
 
         public void OnThirdEye(InputInfo context)
         {
-            if (context.started)
+            if (context.performed)
             {
                 ThirdEyeToggleStart();
             }

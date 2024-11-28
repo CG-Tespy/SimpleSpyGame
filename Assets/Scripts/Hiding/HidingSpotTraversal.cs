@@ -1,12 +1,10 @@
 using CGT;
 using CGT.Utils;
-using CGT.Utils.DGDoTween;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 namespace SimpleSpyGame
 {
