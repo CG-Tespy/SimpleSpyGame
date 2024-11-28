@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
+using CGT.Utils;
 
 namespace SimpleSpyGame
 {
@@ -26,6 +27,8 @@ namespace SimpleSpyGame
         
         protected virtual void Update()
         {
+            _potentialSpots.Clear();
+
             if (_player.IsHiding)
             {
                 Debug.Log($"Searching for hiding spots using the jump origin.");
@@ -46,6 +49,7 @@ namespace SimpleSpyGame
             _spotsDetected = (from coll in _potentialSpots
                               where coll != null && coll.CompareTag(_hidingSpotTag)
                               select coll.transform).Distinct().ToList();
+
         }
 
         protected Collider[] _potentialSpots = new Collider[5];
