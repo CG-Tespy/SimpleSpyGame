@@ -3,7 +3,7 @@ using CGT.CharacterControls;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     /// <summary>
     /// Disables and enables InputActions when a specified state is entered or exited.

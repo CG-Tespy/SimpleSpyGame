@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class StealthPlayerController : MonoBehaviour
     {
