@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
+using UnityEngine.Serialization;
 
 namespace SimpleSpyGame
 {
@@ -14,7 +15,8 @@ namespace SimpleSpyGame
         [SerializeField] protected State _onHideExit;
 
         [Tooltip("Caught by an enemy, that is")]
-        [SerializeField] protected GameObject[] _disableIfCaught = new GameObject[] { };
+        [FormerlySerializedAs("_disableIfCaught")]
+        [SerializeField] protected GameObject[] _disableOnLevelOver = new GameObject[] { };
 
         protected virtual void Awake()
         {
@@ -46,7 +48,8 @@ namespace SimpleSpyGame
         {
             _inputReader.HideStart += OnHideStartInput;
             _inputReader.CancelHideStart += OnCancelHideStart;
-            StageEvents.PlayerCaught += OnPlayerCaught;
+            StageEvents.PlayerWon += OnPlayerWonOrLost;
+            StageEvents.PlayerLost += OnPlayerWonOrLost;
         }
 
         protected virtual void OnHideStartInput()
@@ -106,11 +109,11 @@ namespace SimpleSpyGame
             _onHideExit.Enter();
         }
 
-        protected virtual void OnPlayerCaught()
+        protected virtual void OnPlayerWonOrLost()
         {
             _charaController.enabled = false;
 
-            foreach (var toDisable in _disableIfCaught)
+            foreach (var toDisable in _disableOnLevelOver)
             {
                 toDisable.SetActive(false);
             }
@@ -120,7 +123,8 @@ namespace SimpleSpyGame
         {
             _inputReader.HideStart -= OnHideStartInput;
             _inputReader.CancelHideStart -= OnCancelHideStart;
-            StageEvents.PlayerCaught -= OnPlayerCaught;
+            StageEvents.PlayerWon -= OnPlayerWonOrLost;
+            StageEvents.PlayerLost -= OnPlayerWonOrLost;
         }
 
     }

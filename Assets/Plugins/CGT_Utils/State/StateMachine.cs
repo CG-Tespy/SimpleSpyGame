@@ -114,6 +114,10 @@ namespace CGT
         {
             foreach (State state in _activeStates)
             {
+                if (!state.enabled)
+                {
+                    return;
+                }
                 state.ExecEarlyUpdate();
                 state.ExecUpdate();
             }
@@ -134,6 +138,10 @@ namespace CGT
         {
             foreach (State state in _activeStates)
             {
+                if (!state.enabled)
+                {
+                    return;
+                }
                 state.ExecLateUpdate();
             }
 
@@ -144,6 +152,11 @@ namespace CGT
         {
             foreach (State state in _activeStates)
             {
+                if (!state.enabled)
+                {
+                    return;
+                }
+
                 state.ExecFixedUpdate();
             }
 
