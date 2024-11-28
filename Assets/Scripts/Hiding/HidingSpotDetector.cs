@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
+using CGT.Utils;
+using CGT;
 
 namespace SimpleSpyGame
 {
@@ -11,12 +13,10 @@ namespace SimpleSpyGame
         [SerializeField] [Tag] protected string _hidingSpotTag = string.Empty;
 
         [Tooltip("For detecting spots to jump to (implying you're currently in one")]
-        [SerializeField] protected Transform _jumpDetectionOrigin;
-        [SerializeField] protected float _jumpDetectionRadius = 10f;
+        [SerializeField] protected BoxCollider _jumpDetectionOrigin;
 
         [Tooltip("For detecting spots to move to (implying you're NOT currently in one)")]
-        [SerializeField] protected Transform _normalDetectionOrigin;
-        [SerializeField] protected float _normalDetectionRadius = 3f;
+        [SerializeField] protected SphereCollider _normalDetectionOrigin;
 
         [SerializeField] protected LayerMask _hidingSpotLayers = ~0;
 
@@ -32,31 +32,44 @@ namespace SimpleSpyGame
             if (_player.IsHiding)
             {
                 Debug.Log($"Searching for hiding spots using the jump origin.");
-                FindHidingSpots(_jumpDetectionOrigin, _jumpDetectionRadius);
+                FindHidingSpots(_jumpDetectionOrigin);
             }
             else
             {
                 Debug.Log($"Searching for hiding spots using the normal origin.");
-                FindHidingSpots(_normalDetectionOrigin, _normalDetectionRadius);
+                FindHidingSpots(_normalDetectionOrigin);
             }
         }
 
-        protected virtual void FindHidingSpots(Transform detectionOrigin, float searchRadius)
+        protected virtual void FindHidingSpots(SphereCollider detectionOrigin)
         {
-            Physics.OverlapSphereNonAlloc(detectionOrigin.position, searchRadius, _potentialSpots, _hidingSpotLayers);
+            Physics.OverlapSphereNonAlloc(detectionOrigin.transform.position,
+                detectionOrigin.radius, _potentialSpots, _hidingSpotLayers);
 
             _spotsDetected = (from coll in _potentialSpots
                               where coll != null && coll.CompareTag(_hidingSpotTag)
-                              select coll.transform).ToList();
+                              select coll.transform).Distinct().ToList();
         }
 
         protected Collider[] _potentialSpots = new Collider[5];
+
+        [SerializeField][ReadOnly] protected List<Transform> _spotsDetected = new List<Transform>();
+
         public IList<Transform> SpotsDetected
         {
             get { return _spotsDetected; }
         }
 
-        [SerializeField] [ReadOnly] protected List<Transform> _spotsDetected = new List<Transform>();
+        protected virtual void FindHidingSpots(BoxCollider detectionOrigin)
+        {
+            Physics.OverlapBoxNonAlloc(detectionOrigin.transform.position,
+                detectionOrigin.size / 2, _potentialSpots,
+                detectionOrigin.transform.rotation, _hidingSpotLayers);
+
+            _spotsDetected = (from coll in _potentialSpots
+                              where coll != null && coll.CompareTag(_hidingSpotTag)
+                              select coll.transform).Distinct().ToList();
+        }
 
         protected virtual void OnDrawGizmos()
         {
@@ -64,12 +77,8 @@ namespace SimpleSpyGame
             Gizmos.color = Color.blue;
             if (_normalDetectionOrigin != null)
             {
-                Gizmos.DrawWireSphere(_normalDetectionOrigin.position, _normalDetectionRadius);
-            }
-
-            if (_jumpDetectionOrigin != null)
-            {
-                Gizmos.DrawWireSphere(_jumpDetectionOrigin.position, _jumpDetectionRadius);
+                SphereCollider collider = _normalDetectionOrigin.GetComponent<SphereCollider>();
+                Gizmos.DrawWireSphere(_normalDetectionOrigin.transform.position, collider.radius);
             }
 
             Gizmos.color = prevColor;
