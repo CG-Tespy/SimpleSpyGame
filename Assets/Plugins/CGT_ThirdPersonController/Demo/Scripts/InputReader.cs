@@ -174,5 +174,15 @@ namespace CGT.PlayerMoveController
         {
             throw new System.NotImplementedException();
         }
+
+        public void OnCancelHide(InputInfo context)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnThirdEye(InputInfo context)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

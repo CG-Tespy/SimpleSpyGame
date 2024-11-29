@@ -2,7 +2,7 @@ using CGT;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class EnemyAIAnimManager : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using CGT;
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class TimedIdleState : EnemyAIState
     {

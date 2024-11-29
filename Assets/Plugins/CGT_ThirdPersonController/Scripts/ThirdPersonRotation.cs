@@ -1,10 +1,12 @@
+using CGT.CharacterControls;
 using UnityEngine;
 
 namespace CGT.PlayerMoveController
 {
     public class ThirdPersonRotation : OrderableBehaviour
     {
-        [SerializeField] protected InputReader inputReader;
+        
+        [SerializeField] protected AltInputReader inputReader;
         [SerializeField] protected Transform toRotate;
         [SerializeField] protected float rotationSpeed = 10f;
 
@@ -20,24 +22,8 @@ namespace CGT.PlayerMoveController
             RotateAsAppropriate();
         }
 
-        protected virtual void OnEnable()
-        {
-            inputReader.MovePerformed += OnMovePerformed;
-        }
-
-        protected virtual void OnMovePerformed(Vector2 moveInputs)
-        {
-            inputHorizontal = moveInputs.x;
-            inputVertical = moveInputs.y;
-
-            // For some reason, doing the rotation during each frame this func executes just doesn't work.
-            // Hence the need to do it during OnUpdate.
-
-            //CheckWhatDirectionWeAreMoving();
-            //RotateAsAppropriate();
-        }
-
-        protected float inputHorizontal, inputVertical;
+        protected float InputHorizontal { get { return inputReader.CurrentMovementInput.x; } }
+        protected float InputVertical { get { return inputReader.CurrentMovementInput.y; } }
 
         protected virtual void CheckWhatDirectionWeAreMoving()
         {
@@ -53,8 +39,8 @@ namespace CGT.PlayerMoveController
 
             // We need the forward and horiz movement to be scaled relative to the movement
             // on the corresponding axes
-            forward *= inputVertical;
-            right *= inputHorizontal;
+            forward *= InputVertical;
+            right *= InputHorizontal;
         }
 
         protected Vector3 forward;
@@ -77,13 +63,13 @@ namespace CGT.PlayerMoveController
 
         protected virtual bool ThereIsMovementInputThisFrame
         {
-            get { return inputHorizontal != 0 || inputVertical != 0; }
+            get
+            {
+                bool result = inputReader.CurrentMovementInput.magnitude > 0;
+                return result;
+            }
         }
 
-        protected virtual void OnDisable()
-        {
-            inputReader.MovePerformed -= OnMovePerformed;
-        }
 
     }
 }

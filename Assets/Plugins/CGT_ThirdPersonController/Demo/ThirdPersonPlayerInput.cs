@@ -75,7 +75,25 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                 {
                     ""name"": ""Hide"",
                     ""type"": ""Button"",
-                    ""id"": ""2bccde4c-0883-446b-8b73-e007fd97197e"",
+                    ""id"": ""ad501ac0-97b1-47bf-928e-48e73edf867a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CancelHide"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8a22780-ff26-4cd6-97b8-d7dd9e9fdc50"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThirdEye"",
+                    ""type"": ""Button"",
+                    ""id"": ""0af3642e-9e3d-4db7-bae2-68c028750b60"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -243,30 +261,74 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""CrouchToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""91866130-e143-4d20-b276-6f0bd1b22191"",
+                    ""id"": ""a711f7c1-8535-48d8-80e6-9c9fdb01b864"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";MouseAndKeyboard"",
                     ""action"": ""Hide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e8fb3948-4a32-43e2-bf9b-54106032dc44"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""id"": ""fc989e37-cc88-4604-b2ac-f26e6d6ae00a"",
+                    ""path"": ""<XInputController>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""Hide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e3c5d91-b5e0-403c-88bc-7031c6cf5fad"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";MouseAndKeyboard"",
+                    ""action"": ""CancelHide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87ebf71c-4e7e-4899-845f-7d33e67610a0"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""CancelHide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8dc479be-adef-459c-ad4c-8fb660a525ff"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";MouseAndKeyboard"",
+                    ""action"": ""ThirdEye"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8146a905-d719-4c8a-a6e4-a237be77b651"",
+                    ""path"": ""<XInputController>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ThirdEye"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -294,6 +356,8 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         m_Overworld_Look = m_Overworld.FindAction("Look", throwIfNotFound: true);
         m_Overworld_CrouchToggle = m_Overworld.FindAction("CrouchToggle", throwIfNotFound: true);
         m_Overworld_Hide = m_Overworld.FindAction("Hide", throwIfNotFound: true);
+        m_Overworld_CancelHide = m_Overworld.FindAction("CancelHide", throwIfNotFound: true);
+        m_Overworld_ThirdEye = m_Overworld.FindAction("ThirdEye", throwIfNotFound: true);
     }
 
     ~@ThirdPersonPlayerInput()
@@ -366,6 +430,8 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
     private readonly InputAction m_Overworld_Look;
     private readonly InputAction m_Overworld_CrouchToggle;
     private readonly InputAction m_Overworld_Hide;
+    private readonly InputAction m_Overworld_CancelHide;
+    private readonly InputAction m_Overworld_ThirdEye;
     public struct OverworldActions
     {
         private @ThirdPersonPlayerInput m_Wrapper;
@@ -376,6 +442,8 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         public InputAction @Look => m_Wrapper.m_Overworld_Look;
         public InputAction @CrouchToggle => m_Wrapper.m_Overworld_CrouchToggle;
         public InputAction @Hide => m_Wrapper.m_Overworld_Hide;
+        public InputAction @CancelHide => m_Wrapper.m_Overworld_CancelHide;
+        public InputAction @ThirdEye => m_Wrapper.m_Overworld_ThirdEye;
         public InputActionMap Get() { return m_Wrapper.m_Overworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -403,6 +471,12 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
             @Hide.started += instance.OnHide;
             @Hide.performed += instance.OnHide;
             @Hide.canceled += instance.OnHide;
+            @CancelHide.started += instance.OnCancelHide;
+            @CancelHide.performed += instance.OnCancelHide;
+            @CancelHide.canceled += instance.OnCancelHide;
+            @ThirdEye.started += instance.OnThirdEye;
+            @ThirdEye.performed += instance.OnThirdEye;
+            @ThirdEye.canceled += instance.OnThirdEye;
         }
 
         private void UnregisterCallbacks(IOverworldActions instance)
@@ -425,6 +499,12 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
             @Hide.started -= instance.OnHide;
             @Hide.performed -= instance.OnHide;
             @Hide.canceled -= instance.OnHide;
+            @CancelHide.started -= instance.OnCancelHide;
+            @CancelHide.performed -= instance.OnCancelHide;
+            @CancelHide.canceled -= instance.OnCancelHide;
+            @ThirdEye.started -= instance.OnThirdEye;
+            @ThirdEye.performed -= instance.OnThirdEye;
+            @ThirdEye.canceled -= instance.OnThirdEye;
         }
 
         public void RemoveCallbacks(IOverworldActions instance)
@@ -468,5 +548,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         void OnLook(InputAction.CallbackContext context);
         void OnCrouchToggle(InputAction.CallbackContext context);
         void OnHide(InputAction.CallbackContext context);
+        void OnCancelHide(InputAction.CallbackContext context);
+        void OnThirdEye(InputAction.CallbackContext context);
     }
 }

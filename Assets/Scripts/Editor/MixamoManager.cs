@@ -61,6 +61,7 @@ public class MixamoManager : EditorWindow
 
         modelImporter.clipAnimations = clipAnimations;
         modelImporter.SaveAndReimport();
+        
     }
 
     private static void CenterWindow()
@@ -79,7 +80,7 @@ public class MixamoManager : EditorWindow
         string[] fileInfo = Directory.GetFiles(info, "*.fbx", SearchOption.AllDirectories);
         foreach (string file in fileInfo)
         {
-            if (file.EndsWith(".fbx"))
+            if (file.EndsWith(".fbx") && file.ToLower().Contains("mixamo"))
                 allFiles.Add(file);
         }
     }

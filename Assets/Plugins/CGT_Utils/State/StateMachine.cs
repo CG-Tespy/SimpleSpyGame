@@ -84,6 +84,9 @@ namespace CGT
         protected virtual void OnDisable()
         {
             UNlistenForStateEvents();
+            _activeStates = (from stateEl in _activeStates
+                             where stateEl != null
+                             select stateEl).ToList();
             foreach (var state in _activeStates)
             {
                 state.Exit();
@@ -111,6 +114,10 @@ namespace CGT
         {
             foreach (State state in _activeStates)
             {
+                if (!state.enabled)
+                {
+                    return;
+                }
                 state.ExecEarlyUpdate();
                 state.ExecUpdate();
             }
@@ -131,6 +138,10 @@ namespace CGT
         {
             foreach (State state in _activeStates)
             {
+                if (!state.enabled)
+                {
+                    return;
+                }
                 state.ExecLateUpdate();
             }
 
@@ -141,6 +152,11 @@ namespace CGT
         {
             foreach (State state in _activeStates)
             {
+                if (!state.enabled)
+                {
+                    return;
+                }
+
                 state.ExecFixedUpdate();
             }
 

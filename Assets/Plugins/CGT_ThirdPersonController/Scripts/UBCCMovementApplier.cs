@@ -19,9 +19,12 @@ namespace CGT.CharacterControls
 
         protected virtual void FixedUpdate()
         {
-            Vector3 scaled = Movement * Time.fixedDeltaTime;
-            //Debug.Log($"Applying movement. Unscaled: {Movement} \nScaled: {scaled}");
-            charaController.Move(scaled);
+            if (charaController.enabled)
+            {
+                Vector3 scaled = Movement * Time.fixedDeltaTime;
+                //Debug.Log($"Applying movement. Unscaled: {Movement} \nScaled: {scaled}");
+                charaController.Move(scaled);
+            }
         }
 
         /// <summary>
