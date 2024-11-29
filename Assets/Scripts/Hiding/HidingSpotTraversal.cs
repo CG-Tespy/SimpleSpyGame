@@ -88,6 +88,7 @@ namespace SimpleSpyGame
                 // We'll want smooth movement on the nav mesh to the hiding spot
                 _agent.enabled = true;
                 NavMeshPath path = new NavMeshPath();
+                
                 NavMesh.CalculatePath(_agent.transform.position, hidingSpot.position, NavMesh.AllAreas, path);
                 _agent.isStopped = false;
                 _agent.SetPath(path);

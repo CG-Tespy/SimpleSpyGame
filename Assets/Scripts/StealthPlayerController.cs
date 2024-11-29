@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
 using UnityEngine.Serialization;
+using CGT.Utils;
 
 namespace SimpleSpyGame
 {
@@ -54,14 +55,23 @@ namespace SimpleSpyGame
 
         protected virtual void OnHideStartInput()
         {
-            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing || IsSpotted || _levelOver)
+            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing ||
+                IsSpotted || GameManager.S.LevelOver)
             {
                 return;
             }
 
-            Transform whereToHide = (from spot in SpotsInRange
-                                     where spot != null && spot != CurrentHidingSpot
-                                     select spot).FirstOrDefault();
+            Transform whereToHide = null;
+
+            if (!IsHiding)
+            {
+                whereToHide = SpotsInRange[0];
+            }
+            else
+            {
+                whereToHide = _spotDetector.NearestSpotCamCanSee(Camera.main.transform.position,
+                    CurrentHidingSpot);
+            }
 
             if (whereToHide != null)
             {
@@ -82,7 +92,7 @@ namespace SimpleSpyGame
         }
 
         public virtual bool IsSpotted { get; set; }
-        protected bool _levelOver;
+
 
         public virtual bool IsHiding
         {
@@ -98,7 +108,9 @@ namespace SimpleSpyGame
 
         protected virtual void OnCancelHideStart()
         {
-            if (IsSpotted || !IsHiding || _onHideExit == null || _spotTraversal.IsTraversing || _levelOver)
+            if (IsSpotted || !IsHiding ||
+                _onHideExit == null || _spotTraversal.IsTraversing ||
+                GameManager.S.LevelOver)
             {
                 return;
             }
@@ -112,7 +124,6 @@ namespace SimpleSpyGame
 
         protected virtual void OnPlayerWonOrLost()
         {
-            _levelOver = true;
             _charaController.enabled = false;
 
             foreach (var toDisable in _disableOnLevelOver)

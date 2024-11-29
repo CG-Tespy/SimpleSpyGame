@@ -808,8 +808,9 @@ MonoBehaviour:
   forwardMoveKey: vert
   inAirKey: air
   airVelKey: airVel
-  hidingKey: hiding
+  hidingKey: hide
   victoryKey: victory
+  failureKey: failure
   _toDisableOnGameOver: []
 --- !u!1 &3517560779632911438
 GameObject:
