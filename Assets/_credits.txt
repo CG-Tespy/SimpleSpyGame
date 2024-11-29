@@ -13,6 +13,7 @@
 		Chris
 
 	~Gameplay~
+		Chris
 		CG-Tespy
 
 	~Audio~
@@ -29,8 +30,12 @@
 		Aoha Music (AKA Nid)
 
 	~Sound FX~
-		Golianakin
 		Nox Sound
+		Xkeril
+		FunWithSound
+
+~2D Art~
+	Bing
 
 ~3D Art~
 	Axajia

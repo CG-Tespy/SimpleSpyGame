@@ -55,8 +55,10 @@ namespace SimpleSpyGame
 
         protected virtual void OnHideStartInput()
         {
-            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing ||
-                IsSpotted || GameManager.S.LevelOver)
+            if (SpotsInRange.Count == 0 ||
+                _spotTraversal.IsTraversing ||
+                IsSpotted ||
+                GameManager.S.LevelOver)
             {
                 return;
             }
