@@ -17,6 +17,7 @@ namespace SimpleSpyGame
         [SerializeField] protected SphereCollider _normalDetectionOrigin;
 
         [SerializeField] protected LayerMask _hidingSpotLayers = ~0;
+        [SerializeField] protected LayerMask _obstacleLayers = ~0;
 
         protected virtual void Awake()
         {
@@ -49,7 +50,6 @@ namespace SimpleSpyGame
             _spotsDetected = (from coll in _potentialSpots
                               where coll != null && coll.CompareTag(_hidingSpotTag)
                               select coll.transform).Distinct().ToList();
-
         }
 
         protected Collider[] _potentialSpots = new Collider[5];
@@ -72,6 +72,26 @@ namespace SimpleSpyGame
                               select coll.transform).Distinct().ToList();
         }
 
+        protected virtual void FilterHidingSpots()
+        {
+            // We don't want to count those outside the player character's line of sight
+
+            for (int i = 0; i < _spotsDetected.Count; i++)
+            {
+                Transform spot = _spotsDetected[i];
+                Vector3 towardsSpot = (spot.position - _player.transform.position).normalized;
+                RaycastHit hit;
+
+                bool obstructedViewOfSpot = Physics.Raycast(_player.transform.position, towardsSpot, out hit, 100, _obstacleLayers);
+
+                if (obstructedViewOfSpot)
+                {
+                    _spotsDetected.Remove(spot);
+                    i--; // To avoid going out of bounds
+                }
+            }
+        }
+
         protected virtual void OnDrawGizmos()
         {
             Color prevColor = Gizmos.color;
@@ -83,6 +103,40 @@ namespace SimpleSpyGame
             }
 
             Gizmos.color = prevColor;
+        }
+
+        public virtual Transform NearestSpotCamCanSee(Vector3 basePos, Transform spotToIgnore)
+        {
+            IList<Transform> spotsToConsider = (from spotEl in SpotsDetected
+                                                where spotEl != null && spotEl != spotToIgnore
+                                                select spotEl).ToList();
+
+            if (spotsToConsider.Count == 0)
+            {
+                return null;
+            }
+
+            Transform nearestSpot = null;
+            float nearestDistance = float.MaxValue;
+
+            for (int i = 0; i < spotsToConsider.Count; i++)
+            {
+                Transform spot = spotsToConsider[i];
+                float distance = Vector3.Distance(spot.position, basePos);
+                if (distance < nearestDistance)
+                {
+                    Vector3 towardsSpot = (spot.position - basePos).normalized;
+                    bool isItObstructed = Physics.Raycast(basePos, towardsSpot, 888, _obstacleLayers);
+
+                    if (!isItObstructed)
+                    {
+                        nearestDistance = distance;
+                        nearestSpot = spot;
+                    }
+                }
+            }
+
+            return nearestSpot;
         }
 
     }

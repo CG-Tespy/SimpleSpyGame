@@ -39,5 +39,13 @@ namespace CGT.Utils
                 baseList[i] = null;
             }
         }
+
+        public static void ClearStructs<T>(this IList<T> baseList) where T: struct
+        {
+            for (int i = 0; i < baseList.Count; i++)
+            {
+                baseList[i] = default(T);
+            }
+        }
     }
 }

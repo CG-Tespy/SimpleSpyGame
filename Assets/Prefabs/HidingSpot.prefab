@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _thirdEyeVfx: {fileID: 7607325224153193097}
+  _debugColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1001 &9127516769636312378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158,6 +159,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 689565576462577863, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961243645674602549, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 961243645674602549, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1673599462239567795, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
         type: 3}
       propertyPath: m_Name
@@ -167,6 +183,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054187486093851080, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054187486093851080, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054187486093851080, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054187486093851080, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054187486093851080, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560924706205500919, guid: 5c3e1a3c4d6f41d49b0dba1ecde46005,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

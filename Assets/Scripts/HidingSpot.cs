@@ -7,6 +7,7 @@ namespace SimpleSpyGame
     {
         [Tooltip("This will show up while Third Eye is active")]
         [SerializeField] protected GameObject _thirdEyeVfx;
+        [SerializeField] protected Color _debugColor = Color.blue;
 
         protected virtual void Awake()
         {
@@ -31,5 +32,6 @@ namespace SimpleSpyGame
         {
             _inputReader.ThirdEyeToggleStart -= OnThirdEyeToggle;
         }
+
     }
 }
