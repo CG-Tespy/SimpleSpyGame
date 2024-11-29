@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ThirdEye",
+                    "type": "Button",
+                    "id": "0af3642e-9e3d-4db7-bae2-68c028750b60",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -248,6 +257,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fc989e37-cc88-4604-b2ac-f26e6d6ae00a",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Hide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8e3c5d91-b5e0-403c-88bc-7031c6cf5fad",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -265,6 +285,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "CancelHide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8dc479be-adef-459c-ad4c-8fb660a525ff",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";MouseAndKeyboard",
+                    "action": "ThirdEye",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8146a905-d719-4c8a-a6e4-a237be77b651",
+                    "path": "<XInputController>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ThirdEye",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

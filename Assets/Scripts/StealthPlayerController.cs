@@ -1,35 +1,108 @@
 using CGT;
-using System.Collections;
+using CGT.CharacterControls;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using NaughtyAttributes;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class StealthPlayerController : MonoBehaviour
     {
+        [SerializeField] protected AltInputReader _inputReader; 
         [SerializeField] protected State _hidingState;
-        public virtual bool IsHiding { get; private set; }
+        [SerializeField] protected State _onHideExit;
 
+        protected virtual void Awake()
+        {
+            FindComponents();
+
+            _stateMachine.Register(_hidingState);
+            _stateMachine.Register(_onHideExit);
+        }
+
+        protected virtual void FindComponents()
+        {
+            if (_inputReader == null)
+            {
+                _inputReader = GetComponent<AltInputReader>();
+            }
+
+            _stateMachine = GetComponent<StateMachine>();
+            _spotDetector = GetComponentInChildren<HidingSpotDetector>();
+            _spotTraversal = GetComponentInChildren<HidingSpotTraversal>();
+        }
+
+        protected StateMachine _stateMachine;
+        protected HidingSpotDetector _spotDetector;
+        protected HidingSpotTraversal _spotTraversal;
+        
         protected virtual void OnEnable()
         {
-            _hidingState.Entered += OnHideStateEntered;
-            _hidingState.Exited += OnHideStateEntered;
+            _inputReader.HideStart += OnHideStartInput;
+            _inputReader.CancelHideStart += OnCancelHideStart;
         }
 
-        protected virtual void OnHideStateEntered(IState entered)
+        protected virtual void OnHideStartInput()
         {
-            IsHiding = true;
+            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing)
+            {
+                return;
+            }
+
+            Transform whereToHide = (from spot in SpotsInRange
+                                     where spot != null && spot != CurrentHidingSpot
+                                     select spot).FirstOrDefault();
+
+            if (whereToHide != null)
+            {
+                bool alreadyHiding = IsHiding;
+
+                if (!alreadyHiding)
+                {
+                    _stateMachine.ExitAllActiveStates();
+                    _hidingState.Enter();
+                }
+
+                IsHiding = true;
+                CurrentHidingSpot = whereToHide;
+                
+                // We only want a poof when teleporting from one hiding spot to another
+                _spotTraversal.TraverseTo(whereToHide, alreadyHiding);
+            }
         }
 
-        protected virtual void OnHideStateExited(IState exited)
+        public virtual bool IsHiding
         {
+            get { return _isHiding; }
+            protected set { _isHiding = value; }
+        }
+
+        [SerializeField]
+        [ReadOnly] protected bool _isHiding;
+
+        protected IList<Transform> SpotsInRange { get { return _spotDetector.SpotsDetected; } }
+        public virtual Transform CurrentHidingSpot { get; protected set; }
+
+        protected virtual void OnCancelHideStart()
+        {
+            if (!IsHiding || _onHideExit == null || _spotTraversal.IsTraversing)
+            {
+                return;
+            }
+
+            Debug.Log($"Stopped hiding");
             IsHiding = false;
+            CurrentHidingSpot = null;
+            _hidingState.Exit();
+            _onHideExit.Enter();
         }
 
         protected virtual void OnDisable()
         {
-            _hidingState.Entered -= OnHideStateEntered;
-            _hidingState.Exited -= OnHideStateEntered;
+            _inputReader.HideStart -= OnHideStartInput;
+            _inputReader.CancelHideStart -= OnCancelHideStart;
         }
+
     }
 }

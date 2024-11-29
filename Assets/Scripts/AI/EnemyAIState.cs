@@ -2,7 +2,7 @@ using UnityEngine.AI;
 using UnityEngine;
 using CGT;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     public class EnemyAIState : State
     {

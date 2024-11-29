@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/spyLevel_01.unity
+    guid: 77e48c9834ffa6a419ed7d38a825096b
+  - enabled: 1
+    path: Assets/Scenes/spyLevel_02.unity
+    guid: ebd2e450bf3f0574ca37fef7a156c795
+  - enabled: 1
     path: Assets/Scenes/Gameplay.unity
     guid: 52cd33e80db3ae9479d85a627a987f1b
   - enabled: 1

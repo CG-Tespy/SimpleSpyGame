@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace FightToTheLast
+namespace SimpleSpyGame
 {
     [CreateAssetMenu(fileName = "NewEnemyAISettings", menuName = "FightToTheLast/EnemyAISettings")]
     public class EnemyAISettings : ScriptableObject
