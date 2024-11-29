@@ -3427,18 +3427,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1792607923 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3029674261181806248, guid: e800ceed6005b004c8706549f226d129,
-    type: 3}
-  m_PrefabInstance: {fileID: 3238913690284841664}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f25e05560b30c46aa2df1d090b5ea2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1838630411
 GameObject:
   m_ObjectHideFlags: 3
@@ -3518,6 +3506,12 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 572968461}
+--- !u!1 &1863385987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2896156154093660856, guid: e800ceed6005b004c8706549f226d129,
+    type: 3}
+  m_PrefabInstance: {fileID: 3238913690284841664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1940626131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3932,6 +3926,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7165325197625794928, guid: d630efd8510a54561a4bf6f387f8c037,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1863385987}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3949,11 +3948,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2992889304816599545, guid: e800ceed6005b004c8706549f226d129,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4715188974477058132, guid: e800ceed6005b004c8706549f226d129,
         type: 3}
@@ -4005,16 +3999,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8383073649494886683, guid: e800ceed6005b004c8706549f226d129,
-        type: 3}
-      propertyPath: _initStates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8383073649494886683, guid: e800ceed6005b004c8706549f226d129,
-        type: 3}
-      propertyPath: _initStates.Array.data[0]
-      value: 
-      objectReference: {fileID: 1792607923}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
