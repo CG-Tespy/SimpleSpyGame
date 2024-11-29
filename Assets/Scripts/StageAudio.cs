@@ -6,11 +6,18 @@ namespace SimpleSpyGame
     public class StageAudio : MonoBehaviour
     {
         [SerializeField] protected AudioClip _bgm, _victoryJingle, _failureJingle;
+        [SerializeField] protected int _bgmTrack = 1;
 
         protected virtual void Awake()
         {
             PrepAudioArgs();
-            AudioSystem.S.Play(_bgmArgs);
+
+            AudioClip bgmPlaying = AudioSystem.S.GetClipPlayingAt(TrackGroup.BGMusic, _bgmTrack);
+
+            if (bgmPlaying != _bgm)
+            {
+                AudioSystem.S.Play(_bgmArgs);
+            }
         }
 
         protected virtual void PrepAudioArgs()
@@ -20,6 +27,7 @@ namespace SimpleSpyGame
                 Clip = _bgm,
                 TrackGroup = TrackGroup.BGMusic,
                 Loop = true,
+                Track = _bgmTrack,
             };
 
             _victoryJingleArgs = new PlayAudioArgs()

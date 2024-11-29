@@ -203,5 +203,12 @@ namespace CGT.Myceliaudio
         }
 
         public virtual string Name { get; set; }
+
+        public virtual AudioClip GetClipPlayingIn(int track)
+        {
+            EnsureTrackExists(track);
+            var trackInvolved = tracks[track];
+            return trackInvolved.ClipPlaying;
+        }
     }
 }
