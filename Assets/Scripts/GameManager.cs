@@ -2,6 +2,7 @@ using CGT.CharacterControls;
 using DG.Tweening;
 using NaughtyAttributes;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,7 +18,7 @@ namespace SimpleSpyGame
         [SerializeField] protected float _levelChangeDelay = 2f;
 
         [Tooltip("Make sure they're set in order here")]
-        [SerializeField] [Scene] protected string[] _stages = new string[] { };
+        [SerializeField][Scene] protected List<string> _stages = new List<string>();
 
         [SerializeField] [Scene] protected string _titleScreenScene = "TitleScreen";
 
@@ -40,6 +41,78 @@ namespace SimpleSpyGame
         protected WaitForSeconds _levelChangeWait;
         protected AltInputReader _inputReader;
 
+        protected virtual void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            StageEvents.DocRetrieved += OnDocRetrieved;
+            StageEvents.PlayerCaught += OnPlayerCaught;
+            _inputReader.InteractStart += OnPlayerInteractInput;
+        }
+
+        protected virtual void OnDocRetrieved()
+        {
+            StageEvents.PlayerWon();
+            Debug.Log("The player won!");
+            LevelOver = true;
+        }
+
+        protected virtual IEnumerator PlayerVictorySequence()
+        {
+            yield return WaitToAllowPlayerInput();
+        }
+
+        protected virtual void ShowVictoryUI()
+        {
+
+        }
+
+        protected virtual IEnumerator WaitToAllowPlayerInput()
+        {
+            yield return _levelChangeWait;
+            _playerMayMoveToNextStage = true;
+        }
+
+        protected virtual void OnPlayerCaught()
+        {
+            StageEvents.PlayerLost();
+            Debug.Log("The player was caught...");
+            LevelOver = true;
+            StartCoroutine(PlayerLossSequence());
+        }
+
+        protected virtual IEnumerator PlayerLossSequence()
+        {
+            ShowDefeatUI();
+            yield return _levelChangeWait;
+            _playerMayMoveToNextStage = true;
+        }
+
+        protected virtual void ShowDefeatUI()
+        {
+
+        }
+
+        protected bool _playerMayMoveToNextStage;
+
+        protected virtual void OnPlayerInteractInput()
+        {
+            if (!_playerMayMoveToNextStage || !LevelOver)
+            {
+                return;
+            }
+
+            bool thereIsAnotherLevel = _currentLevelIndex < _stages.Count - 1;
+            if (thereIsAnotherLevel)
+            {
+                MoveToLevel(_currentLevelIndex + 1);
+            }
+            else
+            {
+                _playerMayMoveToNextStage = false; // So avoid the potential issue with button-mashing
+                SceneManager.LoadScene(_titleScreenScene);
+            }
+        }
+
         public virtual void MoveToLevel(int levelIndex)
         {
             _currentLevelIndex = levelIndex;
@@ -57,51 +130,23 @@ namespace SimpleSpyGame
             _movingToNextLevel = false;
         }
 
-        protected virtual void OnEnable()
+        protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            StageEvents.DocRetrieved += OnDocRetrieved;
-            StageEvents.PlayerCaught += OnPlayerCaught;
-            _inputReader.InteractStart += OnPlayerInteractInput;
+            _playerMayMoveToNextStage = false;
+            _movingToNextLevel = false;
 
-        }
-
-        protected virtual void OnDocRetrieved()
-        {
-            StageEvents.PlayerWon();
-            Debug.Log("The player won!");
-            LevelOver = true;
-        }
-
-        protected virtual void OnPlayerCaught()
-        {
-            StageEvents.PlayerLost();
-            Debug.Log("The player was caught...");
-            LevelOver = true;
-            StartCoroutine(PlayerLossSequence());
-        }
-
-        protected virtual IEnumerator PlayerLossSequence()
-        {
-            yield return _levelChangeWait;
-            _levelEndSequenceDone = true;
-
-        }
-
-        protected bool _levelEndSequenceDone;
-
-
-
-        protected virtual void OnPlayerInteractInput()
-        {
-            bool thereIsAnotherLevel = _currentLevelIndex < _stages.Length - 1;
-            if (thereIsAnotherLevel && _levelEndSequenceDone)
+            if (scene.name == _titleScreenScene)
             {
-                MoveToLevel(_currentLevelIndex + 1);
+                _currentLevelIndex = 0;
             }
-            else if (!thereIsAnotherLevel && _levelEndSequenceDone)
+            else
             {
-                _levelEndSequenceDone = false; // So avoid the potential issue with button-mashing
-                SceneManager.LoadScene(_titleScreenScene);
+                int stageIndex = _stages.IndexOf(scene.name);
+                bool loadedAStage = stageIndex >= 0;
+                if (loadedAStage)
+                {
+                    _currentLevelIndex = stageIndex;
+                }
             }
         }
 
@@ -109,6 +154,8 @@ namespace SimpleSpyGame
         {
             StageEvents.DocRetrieved -= OnDocRetrieved;
             StageEvents.PlayerCaught -= OnPlayerCaught;
+            _inputReader.InteractStart -= OnPlayerInteractInput;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         public virtual bool LevelOver { get; protected set; }
