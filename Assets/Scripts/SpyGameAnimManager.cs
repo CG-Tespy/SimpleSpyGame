@@ -32,8 +32,9 @@ namespace SimpleSpyGame
         [SerializeField] protected string forwardMoveKey = "vert";
         [SerializeField] protected string inAirKey = "air";
         [SerializeField] protected string airVelKey = "airVel";
-        [SerializeField] protected string hidingKey = "hiding";
+        [SerializeField] protected string hidingKey = "hide";
         [SerializeField] protected string victoryKey = "victory";
+        [SerializeField] protected string failureKey = "failure";
 
         protected virtual void Awake()
         {
@@ -212,14 +213,18 @@ namespace SimpleSpyGame
         {
             StageEvents.PlayerWon += OnPlayerLostOrWon;
             StageEvents.PlayerLost += OnPlayerLostOrWon;
+            StageEvents.PlayerWon += OnPlayerWon;
+            StageEvents.PlayerLost += OnPlayerLost;
             _animator.speed = _animPrevSpeed;
         }
 
         protected virtual void OnDisable()
         {
-            _animator.speed = 0;
             StageEvents.PlayerWon -= OnPlayerLostOrWon;
             StageEvents.PlayerLost -= OnPlayerLostOrWon;
+            StageEvents.PlayerWon -= OnPlayerWon;
+            StageEvents.PlayerLost -= OnPlayerLost;
+            _animator.speed = 0;
         }
 
         [SerializeField] protected GameObject[] _toDisableOnGameOver = new GameObject[0];
@@ -231,7 +236,17 @@ namespace SimpleSpyGame
             ResetAnimBools();
             _animator.SetFloat(horizMoveKey, 0);
             _animator.SetFloat(forwardMoveKey, 0);
+            
+        }
+
+        protected virtual void OnPlayerWon()
+        {
             _animator.SetBool(victoryKey, true);
+        }
+
+        protected virtual void OnPlayerLost()
+        {
+            _animator.SetBool(failureKey, true);
         }
 
     }

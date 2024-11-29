@@ -69,17 +69,19 @@ namespace SimpleSpyGame
         {
             IsTraversing = true;
             _charaController.enabled = false; // <- So physics doesn't get in the way
-            _agent.isStopped = true;
-
-           Vector3 endRot = GetEndRotation(hidingSpot);
+            
+            Vector3 endRot = GetEndRotation(hidingSpot);
 
             if (teleportToSpot)
             {
+                // To avoid displacement issues, we want the agent disabled during
+                // the teleportation process
+                _agent.enabled = false;
                 yield return Vanish();
                 Hide(_telepStartVfx);
-
                 yield return ReappearAt(hidingSpot, endRot);
                 Hide(_telepEndVfx);
+                _agent.enabled = true;
             }
             else
             {

@@ -54,7 +54,7 @@ namespace SimpleSpyGame
 
         protected virtual void OnHideStartInput()
         {
-            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing || IsSpotted)
+            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing || IsSpotted || _levelOver)
             {
                 return;
             }
@@ -82,6 +82,7 @@ namespace SimpleSpyGame
         }
 
         public virtual bool IsSpotted { get; set; }
+        protected bool _levelOver;
 
         public virtual bool IsHiding
         {
@@ -97,7 +98,7 @@ namespace SimpleSpyGame
 
         protected virtual void OnCancelHideStart()
         {
-            if (IsSpotted || !IsHiding || _onHideExit == null || _spotTraversal.IsTraversing)
+            if (IsSpotted || !IsHiding || _onHideExit == null || _spotTraversal.IsTraversing || _levelOver)
             {
                 return;
             }
@@ -111,6 +112,7 @@ namespace SimpleSpyGame
 
         protected virtual void OnPlayerWonOrLost()
         {
+            _levelOver = true;
             _charaController.enabled = false;
 
             foreach (var toDisable in _disableOnLevelOver)
