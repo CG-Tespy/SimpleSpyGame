@@ -98,6 +98,15 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""947e98ac-9cf1-4242-9237-a1b76d637ca8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -331,6 +340,28 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
                     ""action"": ""ThirdEye"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b022a08-fab4-4f3f-89dc-f584517cdc48"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";MouseAndKeyboard"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd37fda9-6845-4e58-9b0d-1982e9beb8f2"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -358,6 +389,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         m_Overworld_Hide = m_Overworld.FindAction("Hide", throwIfNotFound: true);
         m_Overworld_CancelHide = m_Overworld.FindAction("CancelHide", throwIfNotFound: true);
         m_Overworld_ThirdEye = m_Overworld.FindAction("ThirdEye", throwIfNotFound: true);
+        m_Overworld_Interact = m_Overworld.FindAction("Interact", throwIfNotFound: true);
     }
 
     ~@ThirdPersonPlayerInput()
@@ -432,6 +464,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
     private readonly InputAction m_Overworld_Hide;
     private readonly InputAction m_Overworld_CancelHide;
     private readonly InputAction m_Overworld_ThirdEye;
+    private readonly InputAction m_Overworld_Interact;
     public struct OverworldActions
     {
         private @ThirdPersonPlayerInput m_Wrapper;
@@ -444,6 +477,7 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         public InputAction @Hide => m_Wrapper.m_Overworld_Hide;
         public InputAction @CancelHide => m_Wrapper.m_Overworld_CancelHide;
         public InputAction @ThirdEye => m_Wrapper.m_Overworld_ThirdEye;
+        public InputAction @Interact => m_Wrapper.m_Overworld_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Overworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -477,6 +511,9 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
             @ThirdEye.started += instance.OnThirdEye;
             @ThirdEye.performed += instance.OnThirdEye;
             @ThirdEye.canceled += instance.OnThirdEye;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IOverworldActions instance)
@@ -505,6 +542,9 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
             @ThirdEye.started -= instance.OnThirdEye;
             @ThirdEye.performed -= instance.OnThirdEye;
             @ThirdEye.canceled -= instance.OnThirdEye;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IOverworldActions instance)
@@ -550,5 +590,6 @@ public partial class @ThirdPersonPlayerInput: IInputActionCollection2, IDisposab
         void OnHide(InputAction.CallbackContext context);
         void OnCancelHide(InputAction.CallbackContext context);
         void OnThirdEye(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

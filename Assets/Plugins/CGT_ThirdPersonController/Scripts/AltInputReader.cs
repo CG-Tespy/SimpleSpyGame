@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using InputInfo = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace CGT.CharacterControls
@@ -124,6 +125,16 @@ namespace CGT.CharacterControls
         }
 
         public event Action ThirdEyeToggleStart = delegate { };
+
+        public void OnInteract(InputInfo context)
+        {
+            if (context.performed)
+            {
+                InteractStart();
+            }
+        }
+
+        public event Action InteractStart = delegate { };
 
     }
 }

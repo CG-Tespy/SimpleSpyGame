@@ -184,5 +184,10 @@ namespace CGT.PlayerMoveController
         {
             throw new System.NotImplementedException();
         }
+
+        public void OnInteract(InputInfo context)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
