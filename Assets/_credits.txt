@@ -31,6 +31,8 @@
 
 	~Sound FX~
 		Nox Sound
+		Xkeril
+		FunWithSound
 
 ~2D Art~
 	Bing

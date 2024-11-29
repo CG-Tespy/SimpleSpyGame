@@ -1145,8 +1145,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266836377}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.001092536, y: -0.16018213, z: 0.00017729419, w: 0.9870869}
-  m_LocalPosition: {x: -87.959564, y: -28.915468, z: -13.78028}
+  m_LocalRotation: {x: 0.001092758, y: -0.16018206, z: 0.0001773324, w: 0.9870869}
+  m_LocalPosition: {x: -43.159477, y: -28.575468, z: -4.5522804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2234,7 +2234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464000262}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16450217, y: 0, z: 0, w: 0.98637676}
+  m_LocalRotation: {x: 0.1645007, y: 0, z: 0, w: 0.986377}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3585,7 +3585,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673130561}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19009425, y: 0, z: 0, w: 0.98176587}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4172,7 +4172,7 @@ Transform:
   m_GameObject: {fileID: 869757099}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -88.959564, y: -27.715467, z: -13.78028}
+  m_LocalPosition: {x: -44.159473, y: -27.375467, z: -4.5522804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4646,7 +4646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946485929}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1389374, y: 0, z: 0, w: 0.9903012}
+  m_LocalRotation: {x: 0.13893592, y: 0, z: 0, w: 0.9903014}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4866,17 +4866,17 @@ PrefabInstance:
     - target: {fileID: 4715188974477058132, guid: e800ceed6005b004c8706549f226d129,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -36.84859
+      value: 7.9515023
       objectReference: {fileID: 0}
     - target: {fileID: 4715188974477058132, guid: e800ceed6005b004c8706549f226d129,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.12
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 4715188974477058132, guid: e800ceed6005b004c8706549f226d129,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.942
+      value: 18.17
       objectReference: {fileID: 0}
     - target: {fileID: 4715188974477058132, guid: e800ceed6005b004c8706549f226d129,
         type: 3}
@@ -5644,8 +5644,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072726758}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13893722, y: -0.000000032996855, z: 0.000000004629391, w: 0.99030125}
-  m_LocalPosition: {x: -36.84859, y: 2.548, z: 5.9420004}
+  m_LocalRotation: {x: 0.13893707, y: -0.0000037629366, z: 0.0000005279317, w: 0.99030125}
+  m_LocalPosition: {x: 7.9515023, y: 2.888, z: 15.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7403,8 +7403,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722195765}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0010926907, y: -0.16020608, z: 0.00017734649, w: 0.987083}
-  m_LocalPosition: {x: -87.959564, y: -28.915468, z: -13.78028}
+  m_LocalRotation: {x: 0.0010925458, y: -0.16018207, z: 0.00017729776, w: 0.9870869}
+  m_LocalPosition: {x: -43.159477, y: -28.575468, z: -4.5522804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8238,7 +8238,7 @@ GameObject:
   - component: {fileID: 1939709924}
   - component: {fileID: 1939709923}
   m_Layer: 0
-  m_Name: StageMusic
+  m_Name: StageAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8257,6 +8257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bgm: {fileID: 8300000, guid: fae4434600f5bf74090f6e627c7ced98, type: 3}
+  _victoryJingle: {fileID: 8300000, guid: aa5da0e1f63ea01428069a8bcca7e2cb, type: 3}
+  _failureJingle: {fileID: 8300000, guid: dc593ec8ab03d2f46ba5888cc9926ff8, type: 3}
 --- !u!4 &1939709924
 Transform:
   m_ObjectHideFlags: 0
