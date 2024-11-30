@@ -9,6 +9,7 @@ namespace CGT.Myceliaudio
         public static AudioSystem BuildDefault()
         {
             PrepSettingsFile();
+            
             IList<GameObject> managers = PrepTrackManagers();
             GameObject mainSysHolder = new GameObject("Myceliaudio");
 
@@ -24,6 +25,12 @@ namespace CGT.Myceliaudio
 
         private static void PrepSettingsFile()
         {
+            bool thisIsWebglVersion = Application.platform == RuntimePlatform.WebGLPlayer;
+            if (thisIsWebglVersion) // WebGL can't work with the file system. Browser and all
+            {
+                return;
+            }
+
             var filePath = Path.Combine(Application.dataPath, AudioSystem.SystemSettingsFileName);
 
             if (!File.Exists(filePath))
@@ -39,7 +46,7 @@ namespace CGT.Myceliaudio
             }
         }
 
-        private static MyceliaudioSettings systemSettings;
+        private static MyceliaudioSettings systemSettings = new MyceliaudioSettings();
         private static VolumeSettings VolumeSettings { get { return systemSettings.Volume; } }
 
         private static IList<GameObject> PrepTrackManagers()

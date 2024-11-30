@@ -52,7 +52,7 @@ namespace SimpleSpyGame
                               select coll.transform).Distinct().ToList();
         }
 
-        protected Collider[] _potentialSpots = new Collider[20];
+        protected Collider[] _potentialSpots = new Collider[30];
 
         [SerializeField][ReadOnly] protected List<Transform> _spotsDetected = new List<Transform>();
 
