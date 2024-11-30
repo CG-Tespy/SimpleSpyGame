@@ -28,8 +28,6 @@ namespace SimpleSpyGame
         
         protected virtual void Update()
         {
-            _potentialSpots.Clear();
-
             if (_player.IsHiding)
             {
                 //Debug.Log($"Searching for hiding spots using the jump origin.");
@@ -54,7 +52,7 @@ namespace SimpleSpyGame
                               select coll.transform).Distinct().ToList();
         }
 
-        protected Collider[] _potentialSpots = new Collider[5];
+        protected Collider[] _potentialSpots = new Collider[20];
 
         [SerializeField][ReadOnly] protected List<Transform> _spotsDetected = new List<Transform>();
 
