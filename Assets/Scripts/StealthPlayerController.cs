@@ -6,6 +6,7 @@ using System.Linq;
 using NaughtyAttributes;
 using UnityEngine.Serialization;
 using CGT.Utils;
+using System;
 
 namespace SimpleSpyGame
 {
@@ -78,23 +79,42 @@ namespace SimpleSpyGame
             if (whereToHide != null)
             {
                 bool alreadyHiding = IsHiding;
+                Action onComplete = null;
 
                 if (!alreadyHiding)
                 {
                     _stateMachine.ExitAllActiveStates();
                     _hidingState.Enter();
+                    StartEnteringHidingSpot();
+                }
+                else
+                {
+                    onComplete = SignalTeleportEnd;
+                    TeleportStart();
                 }
 
                 IsHiding = true;
                 CurrentHidingSpot = whereToHide;
                 
                 // We only want a poof when teleporting from one hiding spot to another
-                _spotTraversal.TraverseTo(whereToHide, alreadyHiding);
+                _spotTraversal.TraverseTo(whereToHide, alreadyHiding, onComplete);
             }
+        }
+
+        protected virtual void SignalTeleportEnd()
+        {
+            TeleportEnd();
         }
 
         public virtual bool IsSpotted { get; set; }
 
+        /// <summary>
+        /// For when this starts getting into a hiding spot (as opposed to teleporting to one)
+        /// </summary>
+        public event Action StartEnteringHidingSpot = delegate { };
+
+        public event Action TeleportStart = delegate { };
+        public event Action TeleportEnd = delegate { };
 
         public virtual bool IsHiding
         {
