@@ -25,11 +25,26 @@ namespace SimpleSpyGame
         protected virtual void OnEnable()
         {
             _inputReader.ThirdEyeToggleStart += OnThirdEyeToggle;
+            StageEvents.PlayerWon += OnPlayerWonOrLost;
+            StageEvents.PlayerLost += OnPlayerWonOrLost;
         }
 
         protected virtual void OnThirdEyeToggle()
         {
+            if (!_canToggle)
+            {
+                return;
+            }
+
             _thirdEyeActive = !_thirdEyeActive;
+            ApplyScreenFade();
+        }
+
+        protected bool _canToggle = true;
+        protected bool _thirdEyeActive;
+
+        protected virtual void ApplyScreenFade()
+        {
             float targetOpacity;
 
             if (_thirdEyeActive)
@@ -45,12 +60,20 @@ namespace SimpleSpyGame
             _fadeTween = _screen.DOFade(targetOpacity, _fadeDuration);
         }
 
-        protected bool _thirdEyeActive;
         protected Tween _fadeTween;
+
+        protected virtual void OnPlayerWonOrLost()
+        {
+            _canToggle = false;
+            _thirdEyeActive = false;
+            ApplyScreenFade();
+        }
 
         protected virtual void OnDisable()
         {
             _inputReader.ThirdEyeToggleStart -= OnThirdEyeToggle;
+            StageEvents.PlayerWon -= OnPlayerWonOrLost;
+            StageEvents.PlayerLost -= OnPlayerWonOrLost;
         }
     }
 }
