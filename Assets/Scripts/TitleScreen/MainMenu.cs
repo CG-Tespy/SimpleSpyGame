@@ -33,9 +33,9 @@ public class MainMenu : MonoBehaviour
 	private Vector3 originalButtonScale;
 	private bool isButtonInteractable;
 
-    Sequence onButtonSequence; // For button growing and shrinking
+	Sequence onButtonSequence; // For button growing and shrinking
 
-    private void Awake()
+	private void Awake()
 	{
 		foreach (Button btn in buttons)
 		{
@@ -63,7 +63,7 @@ public class MainMenu : MonoBehaviour
 		currentSelectedObject = EventSystem.current.currentSelectedGameObject;
 	}
 
-    public void NewGame()
+	public void NewGame()
 	{
 		DOTween.Clear();
 		SceneManager.LoadScene(NextSceneName);
@@ -73,20 +73,20 @@ public class MainMenu : MonoBehaviour
 	{
 		if (!isButtonInteractable) return;
 		currentSelectedObject = aButton.gameObject;
-        AudioSystem.S.Play(titleScreenSFX.hoverBtnArgs);
+		AudioSystem.S.Play(titleScreenSFX.hoverBtnArgs);
 
 		onButtonSequence.Kill(); // For avoiding issue when using both mouse and gamepad
-        // Setup growing and shrinking Tween
-        onButtonSequence = DOTween.Sequence();
-        onButtonSequence.Append(currentSelectedObject.transform.DOScale(originalButtonScale * hoverButtonRatio, buttonScaleDuration)
-                                .OnComplete(() =>
-                                {
-                                    currentSelectedObject.transform.DOScale(originalButtonScale, buttonScaleDuration);
-                                }));
-        onButtonSequence.SetLoops(-1, LoopType.Yoyo);
-    }
+		// Setup growing and shrinking Tween
+		onButtonSequence = DOTween.Sequence();
+		onButtonSequence.Append(currentSelectedObject.transform.DOScale(originalButtonScale * hoverButtonRatio, buttonScaleDuration)
+								.OnComplete(() =>
+								{
+									currentSelectedObject.transform.DOScale(originalButtonScale, buttonScaleDuration);
+								}));
+		onButtonSequence.SetLoops(-1, LoopType.Yoyo);
+	}
 
-    public void MouseExitButton(Button aButton)
+	public void MouseExitButton(Button aButton)
 	{
 		if (!isButtonInteractable) return;
 		onButtonSequence.Kill();
@@ -116,9 +116,9 @@ public class MainMenu : MonoBehaviour
 			DOLocalMoveX(1340, buttonMoveDuration).
 			SetEase(Ease.InBack).
 			OnComplete(()=> {
-                settingUI.gameObject.SetActive(true);
-                settingButton.transform.DOScale(originalButtonScale, 0.2f);
-            });
+				settingUI.gameObject.SetActive(true);
+				settingButton.transform.DOScale(originalButtonScale, 0.2f);
+			});
 	}
 
 	public void ExitGame()

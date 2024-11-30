@@ -11,9 +11,6 @@ namespace SimpleSpyGame
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] protected Image _blackScreen;
-        [SerializeField] protected float _blackScreenFadeDuration = 1f;
-
         [Tooltip("How long the player has to wait (after losing in or beating a level) before they can apply input to move on")]
         [SerializeField] protected float _levelChangeDelay = 2f;
 
@@ -33,7 +30,7 @@ namespace SimpleSpyGame
             S = this;
 
             _levelChangeWait = new WaitForSeconds(_levelChangeDelay);
-            _inputReader = FindObjectOfType<AltInputReader>();
+            
         }
 
         public static GameManager S { get; protected set; }
@@ -43,10 +40,23 @@ namespace SimpleSpyGame
 
         protected virtual void OnEnable()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            _inputReader = FindObjectOfType<AltInputReader>();
+
+            ListenForEvents();
+        }
+
+        protected virtual void ListenForEvents()
+        {
             StageEvents.DocRetrieved += OnDocRetrieved;
             StageEvents.PlayerCaught += OnPlayerCaught;
-            _inputReader.InteractStart += OnPlayerInteractInput;
+
+            if (_inputReader != null) // Since the player might not be in the current scene
+            {
+                _inputReader.InteractStart += OnPlayerInteractInput;
+            }
+            SystemEvents.ScreenFadeOutDone += OnScreenFadeOutDone;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SystemEvents.FadeOutForGameExitDone += OnFadeOutForGameExitDone;
         }
 
         protected virtual void OnDocRetrieved()
@@ -54,16 +64,12 @@ namespace SimpleSpyGame
             StageEvents.PlayerWon();
             Debug.Log("The player won!");
             LevelOver = true;
+            StartCoroutine(PlayerVictorySequence());
         }
 
         protected virtual IEnumerator PlayerVictorySequence()
         {
             yield return WaitToAllowPlayerInput();
-        }
-
-        protected virtual void ShowVictoryUI()
-        {
-
         }
 
         protected virtual IEnumerator WaitToAllowPlayerInput()
@@ -82,14 +88,7 @@ namespace SimpleSpyGame
 
         protected virtual IEnumerator PlayerLossSequence()
         {
-            ShowDefeatUI();
-            yield return _levelChangeWait;
-            _playerMayMoveToNextStage = true;
-        }
-
-        protected virtual void ShowDefeatUI()
-        {
-
+            yield return WaitToAllowPlayerInput();
         }
 
         protected bool _playerMayMoveToNextStage;
@@ -101,39 +100,46 @@ namespace SimpleSpyGame
                 return;
             }
 
+            _playerMayMoveToNextStage = false; // <- To avoid the potential issue with button-mashing
             bool thereIsAnotherLevel = _currentLevelIndex < _stages.Count - 1;
             if (thereIsAnotherLevel)
             {
-                MoveToLevel(_currentLevelIndex + 1);
+                _shouldMoveToNextLevel = true;
+                SystemEvents.MoveToNextLevelStart();
             }
             else
             {
-                _playerMayMoveToNextStage = false; // So avoid the potential issue with button-mashing
-                SceneManager.LoadScene(_titleScreenScene);
+                _shouldMoveToTitleScreen = true;
+                SystemEvents.MoveToTitleScreenStart();
             }
         }
 
+        protected bool _shouldMoveToNextLevel, _shouldMoveToTitleScreen;
         public virtual void MoveToLevel(int levelIndex)
         {
             _currentLevelIndex = levelIndex;
-            _movingToNextLevel = true;
-            _blackScreen.DOFade(0, _blackScreenFadeDuration)
-                .OnComplete(LoadLevelOnScreenFadeOut);
+            string levelToLoad = _stages[_currentLevelIndex];
+            SceneManager.LoadScene(levelToLoad);
         }
 
         protected bool _movingToNextLevel;
 
-        protected virtual void LoadLevelOnScreenFadeOut()
+        protected virtual void OnScreenFadeOutDone()
         {
-            string levelToLoad = _stages[_currentLevelIndex];
-            SceneManager.LoadScene(levelToLoad);
-            _movingToNextLevel = false;
+            if (_shouldMoveToNextLevel)
+            {
+                MoveToLevel(_currentLevelIndex + 1);
+            }
+            else if (_shouldMoveToTitleScreen)
+            {
+                SceneManager.LoadScene(_titleScreenScene);
+            }
         }
 
         protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _playerMayMoveToNextStage = false;
-            _movingToNextLevel = false;
+            _playerMayMoveToNextStage = _shouldMoveToTitleScreen =
+                _shouldMoveToNextLevel = _movingToNextLevel = false;
 
             if (scene.name == _titleScreenScene)
             {
@@ -147,17 +153,46 @@ namespace SimpleSpyGame
                 {
                     _currentLevelIndex = stageIndex;
                 }
+
+                _inputReader = FindObjectOfType<AltInputReader>();
+
+                UNlistenForEvents();
+                ListenForEvents();
+
+                SystemEvents.LevelLoaded();
             }
         }
 
         protected virtual void OnDisable()
         {
+            UNlistenForEvents();
+        }
+
+        protected virtual void UNlistenForEvents()
+        {
             StageEvents.DocRetrieved -= OnDocRetrieved;
             StageEvents.PlayerCaught -= OnPlayerCaught;
-            _inputReader.InteractStart -= OnPlayerInteractInput;
+
+            if (_inputReader != null)
+            {
+                _inputReader.InteractStart -= OnPlayerInteractInput;
+            }
+
+            SystemEvents.ScreenFadeOutDone -= OnScreenFadeOutDone;
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            SystemEvents.FadeOutForGameExitDone -= OnFadeOutForGameExitDone;
         }
 
         public virtual bool LevelOver { get; protected set; }
+
+        public virtual void ExitGame()
+        {
+            SystemEvents.ExitGameSeqStart();
+        }
+
+        protected virtual void OnFadeOutForGameExitDone()
+        {
+            Application.Quit();
+        }
     }
 }
