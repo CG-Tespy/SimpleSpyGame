@@ -4,7 +4,7 @@ public class Task1 : Task
 {
     public override bool Done()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (tutorial.isThirdEyeToggled)
         {
             return true;
 		}

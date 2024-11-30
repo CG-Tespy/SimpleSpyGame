@@ -3,7 +3,7 @@ public class Task2 : Task
 {
     public override bool Done()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (tutorial.isHiding)
         {
             return true;
         }

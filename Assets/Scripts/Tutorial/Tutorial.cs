@@ -13,6 +13,9 @@ public class Tutorial : MonoBehaviour
     private Task currentTask;
     public AltInputReader inputReader;
 
+    public bool isHiding;
+    public bool isThirdEyeToggled;
+
     private void Awake()
     {
         inputReader = FindObjectOfType<AltInputReader>();       
@@ -70,10 +73,18 @@ public class Tutorial : MonoBehaviour
     public void OnThridEyeToggle()
     {
         Debug.Log("Tutorial::OnThirdEyeToggle");
+        isThirdEyeToggled = true;
 	}
 
     public void OnHideStart()
     { 
         Debug.Log("Tutorial::OnHideStart");
+        isHiding = true;
+	}
+
+    public void OnCancleHide()
+    { 
+        Debug.Log("Tutorial::OnCancleHide");
+        isHiding = false;
 	}
 }
