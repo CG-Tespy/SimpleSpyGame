@@ -11,7 +11,7 @@ namespace SimpleSpyGame
         [SerializeField] [Tag] protected string _hidingSpotTag = string.Empty;
 
         [Tooltip("For detecting spots to jump to (implying you're currently in one")]
-        [SerializeField] protected BoxCollider _jumpDetectionOrigin;
+        [SerializeField] protected SphereCollider _jumpDetectionOrigin;
 
         [Tooltip("For detecting spots to move to (implying you're NOT currently in one)")]
         [SerializeField] protected SphereCollider _normalDetectionOrigin;
@@ -105,7 +105,7 @@ namespace SimpleSpyGame
             Gizmos.color = prevColor;
         }
 
-        public virtual Transform NearestSpotCamCanSee(Vector3 basePos, Transform spotToIgnore)
+        public virtual Transform NearestSpotCamCanSee(Vector3 basePos, Transform spotToIgnore, float camAngleLimit = 45f)
         {
             IList<Transform> spotsToConsider = (from spotEl in SpotsDetected
                                                 where spotEl != null && spotEl != spotToIgnore
@@ -126,9 +126,10 @@ namespace SimpleSpyGame
                 if (distance < nearestDistance)
                 {
                     Vector3 towardsSpot = (spot.position - basePos).normalized;
+                    bool withinAngleLimit = Vector3.Angle(Camera.main.transform.forward, towardsSpot) < camAngleLimit;
                     bool isItObstructed = Physics.Raycast(basePos, towardsSpot, distance, _obstacleLayers);
 
-                    if (!isItObstructed)
+                    if (withinAngleLimit && !isItObstructed)
                     {
                         nearestDistance = distance;
                         nearestSpot = spot;

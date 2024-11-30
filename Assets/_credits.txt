@@ -30,7 +30,6 @@
 		Aoha Music (AKA Nid)
 
 	~Sound FX~
-		Nox Sound
 		Xkeril
 		FunWithSound
 
@@ -49,6 +48,10 @@
 ~Animation~
 	Kevin Iglesias
 	Mixamo
+
+~Level Design~
+	Axajia
+	CG-Tespy
 
 ~Special Thanks~
 	GameDevTV
