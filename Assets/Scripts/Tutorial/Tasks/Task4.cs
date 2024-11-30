@@ -1,10 +1,9 @@
-using UnityEngine;
-
 public class Task4 : Task 
 {
     public override bool Done()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        // Cancle hiding
+        if (tutorial.isTeleportToggled && !tutorial.player.IsHiding)
         {
             return true;
 		}

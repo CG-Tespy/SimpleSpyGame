@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class Task3 : Task 
 {
     public override bool Done()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (tutorial.isTeleportToggled)
         {
             return true;
 		}

@@ -1,30 +1,41 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using CGT.CharacterControls;
+using SimpleSpyGame;
 
 public class Tutorial : MonoBehaviour
 {
-    public GameObject player;
     [SerializeField] private List<Task> tasks;
     [SerializeField] private Text textShower;
-    private Task currentTask;
+    public StealthPlayerController player; 
     public AltInputReader inputReader;
 
-    public bool isHiding;
+    private Task currentTask;
+
+    [Header("For Debug")]
     public bool isThirdEyeToggled;
+    public bool isTeleportToggled;
+
+    public bool isHiding;
 
     private void Awake()
     {
+        player = FindAnyObjectByType<StealthPlayerController>();
         inputReader = FindObjectOfType<AltInputReader>();       
     }
 
     private void OnEnable()
     {
         inputReader.ThirdEyeToggleStart += OnThridEyeToggle;
-        inputReader.HideStart += OnHideStart;
+        inputReader.JumpStart += OnJump;
+    }
+
+    private void OnDisable()
+    {
+        inputReader.ThirdEyeToggleStart -= OnThridEyeToggle;
+        inputReader.JumpStart -= OnJump;
     }
 
     private void Start()
@@ -43,6 +54,7 @@ public class Tutorial : MonoBehaviour
         {
             ChangeToNextTask();
 		}
+        isHiding = player.IsHiding;
     }
 
     private void GetFirstTask()
@@ -72,19 +84,14 @@ public class Tutorial : MonoBehaviour
 
     public void OnThridEyeToggle()
     {
-        Debug.Log("Tutorial::OnThirdEyeToggle");
         isThirdEyeToggled = true;
 	}
 
-    public void OnHideStart()
-    { 
-        Debug.Log("Tutorial::OnHideStart");
-        isHiding = true;
-	}
-
-    public void OnCancleHide()
-    { 
-        Debug.Log("Tutorial::OnCancleHide");
-        isHiding = false;
+    public void OnJump()
+    {
+	    if (player.IsHiding)
+        {
+            isTeleportToggled = true;
+		}
 	}
 }

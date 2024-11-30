@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Task1 : Task 
 {
     public override bool Done()

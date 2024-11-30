@@ -1,9 +1,8 @@
-using UnityEngine;
 public class Task2 : Task 
 {
     public override bool Done()
     {
-        if (tutorial.isHiding)
+        if (tutorial.player.IsHiding)
         {
             return true;
         }
