@@ -511,10 +511,11 @@ MonoBehaviour:
   _fadeOutDur: 2
   hoverButtonRatio: 1.2
   buttonMoveDuration: 0.7
-  buttonMoveDelay: 2
+  buttonMoveDelay: 1
   buttonScaleDuration: 0.3
-  cube: {fileID: 0}
+  cube: {fileID: 1892892597831779869}
   settingUI: {fileID: 4782789192313247019}
+  _titleScene: TitleScreen_CGT
 --- !u!1 &1221823057430573764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,6 +1986,111 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3893521992034027772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892892597831779869}
+  - component: {fileID: 1858920792076306097}
+  - component: {fileID: 4074635602652012636}
+  - component: {fileID: 9023822434534306281}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1892892597831779869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893521992034027772}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 302, y: 169.75, z: 0}
+  m_LocalScale: {x: 0.30966628, y: 0.30966628, z: 0.30966628}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1193929768208646386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1858920792076306097
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893521992034027772}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4074635602652012636
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893521992034027772}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -876546973899608171, guid: 3739e562a03fc0b4982d8aa66cc50865, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9023822434534306281
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3893521992034027772}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4098709568014381205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,6 +3299,7 @@ Transform:
   m_Children:
   - {fileID: 4996500167614497098}
   - {fileID: 7605433954632836998}
+  - {fileID: 1892892597831779869}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6373402580693605120
@@ -3211,7 +3318,7 @@ MonoBehaviour:
   _stages:
   - spyLevel_01
   - spyLevel_02
-  _titleScreenScene: TitleScreen_CGT
+  _titleScreenScene: TitleScreen
 --- !u!114 &7461853445211651210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3225,12 +3332,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _titleText: {fileID: 1123936916470524363}
-  _titleScene: TitleScreen_CGT
+  _titleScene: TitleScreen
   _holdsTitleButtons: {fileID: 9179027387186358480}
   _victoryText: {fileID: 8166318582441120816}
   _defeatText: {fileID: 7295772759517119645}
   _fadeDur: 2
   _fadeScreen: {fileID: 7365085773847311812}
+  _titleAnims: {fileID: 9016097308077187579}
 --- !u!1 &6791610553160768507
 GameObject:
   m_ObjectHideFlags: 0

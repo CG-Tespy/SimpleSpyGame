@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TitleScreen_CGT.unity
+    path: Assets/Scenes/TitleScreen.unity
     guid: e89b1161226b00e459c0ba582abe2e19
   - enabled: 1
     path: Assets/Scenes/spyLevel_01.unity
