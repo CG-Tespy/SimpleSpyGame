@@ -28,6 +28,7 @@ namespace SimpleSpyGame
             }
 
             S = this;
+            DontDestroyOnLoad(this.gameObject);
 
             _levelChangeWait = new WaitForSeconds(_levelChangeDelay);
             
@@ -193,6 +194,13 @@ namespace SimpleSpyGame
         protected virtual void OnFadeOutForGameExitDone()
         {
             Application.Quit();
+        }
+    
+        public virtual void NewGame()
+        {
+            _currentLevelIndex = -1; // <- Should be set to 0 when the fade's done
+            _shouldMoveToNextLevel = true;
+            SystemEvents.MoveToNextLevelStart();
         }
     }
 }

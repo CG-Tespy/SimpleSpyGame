@@ -126,7 +126,7 @@ namespace SimpleSpyGame
                 if (distance < nearestDistance)
                 {
                     Vector3 towardsSpot = (spot.position - basePos).normalized;
-                    bool isItObstructed = Physics.Raycast(basePos, towardsSpot, 888, _obstacleLayers);
+                    bool isItObstructed = Physics.Raycast(basePos, towardsSpot, distance, _obstacleLayers);
 
                     if (!isItObstructed)
                     {

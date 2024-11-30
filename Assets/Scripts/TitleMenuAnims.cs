@@ -98,6 +98,7 @@ namespace SimpleSpyGame
             _buttonAnimSeq.Kill();
             DISableButtons();
             MoveOutButton();
+            CallSettingsScreen();
         }
 
         public void MoveInButton()
@@ -110,13 +111,29 @@ namespace SimpleSpyGame
 
         public void MoveOutButton()
         {
+            _buttonAnimSeq.Kill();
             buttonParent.
                 DOLocalMoveX(1340, buttonMoveDuration).
-                SetEase(Ease.InBack).
-                OnComplete(() => {
-                    settingUI.gameObject.SetActive(true);
-                    settingButton.transform.DOScale(originalButtonScale, 0.2f);
-                });
+                SetEase(Ease.InBack);
+        }
+
+        public virtual void CallSettingsScreen(float delay = 1f)
+        {
+            CancelInvoke();
+            if (delay <= 0)
+            {
+                ActivateSettingsScreen();
+            }
+            else
+            {
+                Invoke(nameof(ActivateSettingsScreen), delay);
+            }
+        }
+
+        protected virtual void ActivateSettingsScreen()
+        {
+            settingUI.gameObject.SetActive(true);
+            settingButton.transform.DOScale(originalButtonScale, 0.2f);
         }
 
         public void ExitGame()
@@ -150,5 +167,26 @@ namespace SimpleSpyGame
             }
         }
 
+        protected virtual void OnEnable()
+        {
+            SystemEvents.MoveToNextLevelStart += OnMoveToNextLevelStart;
+        }
+
+        protected virtual void OnMoveToNextLevelStart()
+        {
+            _buttonAnimSeq.Kill();
+
+            foreach (var buttonEl in buttons)
+            {
+                buttonEl.transform.DOScale(originalButtonScale, 0.2f);
+            }
+
+            DISableButtons();
+        }
+
+        protected virtual void OnDisable()
+        {
+            SystemEvents.MoveToNextLevelStart -= OnMoveToNextLevelStart;
+        }
     }
 }

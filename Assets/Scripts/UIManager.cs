@@ -12,6 +12,7 @@ namespace SimpleSpyGame
 {
     public class UIManager : MonoBehaviour
     {
+        [SerializeField] protected TextMeshProUGUI _titleText;
         [SerializeField] [Scene] protected string _titleScene = "TitleScreen_CGT";
         [SerializeField] protected Transform _holdsTitleButtons;
         [SerializeField] protected TextMeshProUGUI _victoryText, _defeatText;
@@ -48,6 +49,7 @@ namespace SimpleSpyGame
             StageEvents.PlayerLost += OnPlayerLost;
             SystemEvents.MoveToNextLevelStart += OnMoveToNextLevelStart;
             SystemEvents.ExitGameSeqStart += OnExitGameSeqStart;
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         protected virtual void OnPlayerWon()
@@ -83,6 +85,7 @@ namespace SimpleSpyGame
 
         protected virtual void OnBlackScreenDoneFadingOut()
         {
+            _titleText.gameObject.SetActive(false);
             SystemEvents.ScreenFadeOutDone();
         }
 
@@ -93,8 +96,10 @@ namespace SimpleSpyGame
 
             if (scene.name == _titleScene)
             {
+                _titleText.gameObject.SetActive(true);
                 SetLevelEndTextVisibility(_hideIt);
             }
+            
         }
 
         protected virtual void OnExitGameSeqStart()
@@ -119,6 +124,7 @@ namespace SimpleSpyGame
             StageEvents.PlayerLost -= OnPlayerLost;
             SystemEvents.MoveToNextLevelStart -= OnMoveToNextLevelStart;
             SystemEvents.ExitGameSeqStart -= OnExitGameSeqStart;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
 }
