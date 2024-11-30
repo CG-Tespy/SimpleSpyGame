@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{D556EA0E-0081-4972-B2AC-B61765D861D4}" SchemaVersion="119">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{D556EA0E-0081-4972-B2AC-B61765D861D4}" PersistMode="Standalone">
+			<ChildrenList>
+				<ActorMixer Name="World" ID="{0EF900C1-D860-4CE3-970B-C3D3F59F1172}" ShortID="615110178">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DCC47D7D-304C-43F9-90AF-36098A7B9495}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B0D2A6D8-8004-4F45-AABA-6F14B89D78D4}"/>
+						</Reference>
+					</ReferenceList>
+				</ActorMixer>
+				<ActorMixer Name="Non World" ID="{B9DEC92C-6C6B-40AF-84E5-B72513F18227}" ShortID="186046680">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DCC47D7D-304C-43F9-90AF-36098A7B9495}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{B0D2A6D8-8004-4F45-AABA-6F14B89D78D4}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<WorkUnit Name="Music" ID="{53890FA9-19F2-41D1-965C-F57890FE4E5B}" PersistMode="Reference"/>
+					</ChildrenList>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _screen: {fileID: 5522606968640077042}
-  _darknessOpacity: 75
+  _darknessOpacity: 90
   _fadeDuration: 1
 --- !u!1 &9006470012991279806
 GameObject:

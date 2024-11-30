@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using NaughtyAttributes;
+using UnityEngine.Serialization;
+using CGT.Utils;
 
 namespace SimpleSpyGame
 {
@@ -12,6 +14,10 @@ namespace SimpleSpyGame
         [SerializeField] protected AltInputReader _inputReader; 
         [SerializeField] protected State _hidingState;
         [SerializeField] protected State _onHideExit;
+
+        [Tooltip("Caught by an enemy, that is")]
+        [FormerlySerializedAs("_disableIfCaught")]
+        [SerializeField] protected GameObject[] _disableOnLevelOver = new GameObject[] { };
 
         protected virtual void Awake()
         {
@@ -31,28 +37,43 @@ namespace SimpleSpyGame
             _stateMachine = GetComponent<StateMachine>();
             _spotDetector = GetComponentInChildren<HidingSpotDetector>();
             _spotTraversal = GetComponentInChildren<HidingSpotTraversal>();
+            _charaController = GetComponent<CharacterController>();
         }
 
         protected StateMachine _stateMachine;
         protected HidingSpotDetector _spotDetector;
         protected HidingSpotTraversal _spotTraversal;
+        protected CharacterController _charaController;
         
         protected virtual void OnEnable()
         {
             _inputReader.HideStart += OnHideStartInput;
             _inputReader.CancelHideStart += OnCancelHideStart;
+            StageEvents.PlayerWon += OnPlayerWonOrLost;
+            StageEvents.PlayerLost += OnPlayerWonOrLost;
         }
 
         protected virtual void OnHideStartInput()
         {
-            if (SpotsInRange.Count == 0 || _spotTraversal.IsTraversing)
+            if (SpotsInRange.Count == 0 ||
+                _spotTraversal.IsTraversing ||
+                IsSpotted ||
+                GameManager.S.LevelOver)
             {
                 return;
             }
 
-            Transform whereToHide = (from spot in SpotsInRange
-                                     where spot != null && spot != CurrentHidingSpot
-                                     select spot).FirstOrDefault();
+            Transform whereToHide = null;
+
+            if (!IsHiding)
+            {
+                whereToHide = SpotsInRange[0];
+            }
+            else
+            {
+                whereToHide = _spotDetector.NearestSpotCamCanSee(Camera.main.transform.position,
+                    CurrentHidingSpot);
+            }
 
             if (whereToHide != null)
             {
@@ -72,6 +93,9 @@ namespace SimpleSpyGame
             }
         }
 
+        public virtual bool IsSpotted { get; set; }
+
+
         public virtual bool IsHiding
         {
             get { return _isHiding; }
@@ -86,7 +110,9 @@ namespace SimpleSpyGame
 
         protected virtual void OnCancelHideStart()
         {
-            if (!IsHiding || _onHideExit == null || _spotTraversal.IsTraversing)
+            if (IsSpotted || !IsHiding ||
+                _onHideExit == null || _spotTraversal.IsTraversing ||
+                GameManager.S.LevelOver)
             {
                 return;
             }
@@ -98,10 +124,22 @@ namespace SimpleSpyGame
             _onHideExit.Enter();
         }
 
+        protected virtual void OnPlayerWonOrLost()
+        {
+            _charaController.enabled = false;
+
+            foreach (var toDisable in _disableOnLevelOver)
+            {
+                toDisable.SetActive(false);
+            }
+        }
+
         protected virtual void OnDisable()
         {
             _inputReader.HideStart -= OnHideStartInput;
             _inputReader.CancelHideStart -= OnCancelHideStart;
+            StageEvents.PlayerWon -= OnPlayerWonOrLost;
+            StageEvents.PlayerLost -= OnPlayerWonOrLost;
         }
 
     }

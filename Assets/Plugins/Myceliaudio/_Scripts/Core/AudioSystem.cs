@@ -114,5 +114,10 @@ namespace CGT.Myceliaudio
 
         public static string SystemSettingsFileName { get; set; } = "myceliaudioSettings.json";
 
+        public virtual AudioClip GetClipPlayingAt(TrackGroup trackGroup, int track)
+        {
+            var manager = TrackManagers[trackGroup];
+            return manager.GetClipPlayingIn(track);
+        }
     }
 }
