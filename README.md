@@ -2,7 +2,7 @@ As the name implies, this is a simple spy game. The objective: go through levels
 
 This was created for the Github Game Off Jam 2024.
 
-~Jam Members~
+Jam Members:
 	Chris
 	CG-Tespy
 	Golianakin
