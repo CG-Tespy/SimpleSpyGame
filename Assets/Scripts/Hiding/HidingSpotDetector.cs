@@ -28,18 +28,18 @@ namespace SimpleSpyGame
         
         protected virtual void Update()
         {
-            _potentialSpots.Clear();
-
             if (_player.IsHiding)
             {
-                Debug.Log($"Searching for hiding spots using the jump origin.");
+                //Debug.Log($"Searching for hiding spots using the jump origin.");
                 FindHidingSpots(_jumpDetectionOrigin);
             }
             else
             {
-                Debug.Log($"Searching for hiding spots using the normal origin.");
+                //Debug.Log($"Searching for hiding spots using the normal origin.");
                 FindHidingSpots(_normalDetectionOrigin);
             }
+
+            FilterHidingSpots();
         }
 
         protected virtual void FindHidingSpots(SphereCollider detectionOrigin)
@@ -52,7 +52,7 @@ namespace SimpleSpyGame
                               select coll.transform).Distinct().ToList();
         }
 
-        protected Collider[] _potentialSpots = new Collider[5];
+        protected Collider[] _potentialSpots = new Collider[30];
 
         [SerializeField][ReadOnly] protected List<Transform> _spotsDetected = new List<Transform>();
 
@@ -79,18 +79,23 @@ namespace SimpleSpyGame
             for (int i = 0; i < _spotsDetected.Count; i++)
             {
                 Transform spot = _spotsDetected[i];
-                Vector3 towardsSpot = (spot.position - _player.transform.position).normalized;
-                RaycastHit hit;
+                Vector3 towardsSpot = (spot.position - Camera.main.transform.position).normalized;
 
-                bool obstructedViewOfSpot = Physics.Raycast(_player.transform.position, towardsSpot, out hit, 100, _obstacleLayers);
+                RaycastHit hit;
+                bool obstructedViewOfSpot = Physics.Raycast(Camera.main.transform.position, towardsSpot,
+                    out hit, 100, _obstacleLayers);
 
                 if (obstructedViewOfSpot)
                 {
+                    Debug.Log($"{hit.collider.name} is blocking the cam's view of {spot.name}");
+                    Debug.DrawLine(Camera.main.transform.position, spot.position, Color.yellow);
                     _spotsDetected.Remove(spot);
                     i--; // To avoid going out of bounds
                 }
             }
         }
+
+        protected RaycastHit _filterHit;
 
         protected virtual void OnDrawGizmos()
         {
@@ -127,7 +132,8 @@ namespace SimpleSpyGame
                 {
                     Vector3 towardsSpot = (spot.position - basePos).normalized;
                     bool withinAngleLimit = Vector3.Angle(Camera.main.transform.forward, towardsSpot) < camAngleLimit;
-                    bool isItObstructed = Physics.Raycast(basePos, towardsSpot, distance, _obstacleLayers);
+                    RaycastHit hit;
+                    bool isItObstructed = Physics.Raycast(basePos, towardsSpot, out hit, distance, _obstacleLayers);
 
                     if (withinAngleLimit && !isItObstructed)
                     {
