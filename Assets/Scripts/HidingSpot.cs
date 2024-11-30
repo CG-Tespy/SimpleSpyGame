@@ -21,6 +21,8 @@ namespace SimpleSpyGame
         protected virtual void OnEnable()
         {
             _inputReader.ThirdEyeToggleStart += OnThirdEyeToggle;
+            StageEvents.PlayerWon += OnPlayerWonOrLost;
+            StageEvents.PlayerLost += OnPlayerWonOrLost;
         }
 
         protected virtual void OnThirdEyeToggle()
@@ -28,9 +30,16 @@ namespace SimpleSpyGame
             _thirdEyeVfx.SetActive(!_thirdEyeVfx.activeSelf);
         }
 
+        protected virtual void OnPlayerWonOrLost()
+        {
+            this.gameObject.SetActive(false);
+        }
+
         protected virtual void OnDisable()
         {
             _inputReader.ThirdEyeToggleStart -= OnThirdEyeToggle;
+            StageEvents.PlayerWon -= OnPlayerWonOrLost;
+            StageEvents.PlayerLost -= OnPlayerWonOrLost;
         }
 
     }
