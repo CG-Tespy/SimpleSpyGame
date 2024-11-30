@@ -82,7 +82,7 @@ namespace SimpleSpyGame
                 cornerIndex = 1;
             }
 
-            Debug.Log($"{_navAgent.name} going to corner at index {cornerIndex}");
+            //Debug.Log($"{_navAgent.name} going to corner at index {cornerIndex}");
             Vector3 nextCorner = _toWaypoint.corners[cornerIndex];
             // ^Not sure why this only works when the index is 1, but hey
             AgentTrans.DOLookAt(nextCorner, Settings.PatrolTurnDur)

@@ -106,10 +106,10 @@ namespace SimpleSpyGame
                 //_agent.transform.forward = hidingSpot.forward;
                 // ^ Since both DoTween and DoFaceTowards don't get the right result by themselves
 
-                Debug.Log($"Agent done going to hiding spot {hidingSpot.name}");
+                //Debug.Log($"Agent done going to hiding spot {hidingSpot.name}");
             }
 
-            Debug.Log($"Arrived at target hiding spot: {hidingSpot.name}");
+            //Debug.Log($"Arrived at target hiding spot: {hidingSpot.name}");
 
             if (onComplete != null)
             {
