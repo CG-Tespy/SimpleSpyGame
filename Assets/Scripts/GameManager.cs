@@ -147,7 +147,7 @@ namespace SimpleSpyGame
         {
             _playerMayFinishScene = _shouldMoveToTitleScreen =
                 _shouldMoveToNextLevel = _movingToNextLevel = 
-                _playerWon = _playerLost = false;
+                _playerWon = _playerLost = LevelOver = false;
 
             if (scene.name == _titleScreenScene)
             {
