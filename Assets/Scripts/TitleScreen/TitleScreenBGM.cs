@@ -12,7 +12,12 @@ public class TitleScreenBGM : MonoBehaviour
         args.Loop = true;
         args.TrackGroup = TrackGroup.BGMusic;
 
-        AudioSystem.S.Play(args);
+        AudioClip currentlyPlaying = AudioSystem.S.GetClipPlayingAt(TrackGroup.BGMusic, 0);
+        if (currentlyPlaying != _clip)
+        {
+            AudioSystem.S.StopPlaying(TrackGroup.BGMusic, 0);
+            AudioSystem.S.Play(args);
+        }
     }
 
     

@@ -8226,7 +8226,7 @@ MonoBehaviour:
   _bgm: {fileID: 8300000, guid: fae4434600f5bf74090f6e627c7ced98, type: 3}
   _victoryJingle: {fileID: 8300000, guid: aa5da0e1f63ea01428069a8bcca7e2cb, type: 3}
   _failureJingle: {fileID: 8300000, guid: dc593ec8ab03d2f46ba5888cc9926ff8, type: 3}
-  _bgmTrack: 1
+  _bgmTrack: 0
 --- !u!4 &1939709924
 Transform:
   m_ObjectHideFlags: 0
