@@ -126,7 +126,6 @@ namespace CGT.Myceliaudio
             }
             else
             {
-                ClipPlaying = args.Clip;
                 _baseSource.PlayOneShot(args.Clip);
             }
         }
@@ -178,12 +177,25 @@ namespace CGT.Myceliaudio
             }
 
             _baseSource.Stop();
-            ClipPlaying = null;
         }
 
         /// <summary>
         /// The clip playing on loop, as opposed to one shots
         /// </summary>
-        public virtual AudioClip ClipPlaying { get; protected set; }
+        public virtual AudioClip ClipPlaying
+        {
+            get
+            {
+                if (_baseSource.isPlaying)
+                {
+                    return _baseSource.clip;
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace SimpleSpyGame
         [SerializeField] protected float _fadeDur = 2f;
 
         [SerializeField] protected Image _fadeScreen;
+        [SerializeField] protected TitleMenuAnims _titleAnims;
 
         protected virtual void Awake()
         {
@@ -50,6 +51,7 @@ namespace SimpleSpyGame
             SystemEvents.MoveToNextLevelStart += OnMoveToNextLevelStart;
             SystemEvents.ExitGameSeqStart += OnExitGameSeqStart;
             SceneManager.sceneLoaded += OnSceneLoaded;
+            SystemEvents.MoveToTitleScreenStart += OnMoveToTitleScreenStart;
         }
 
         protected virtual void OnPlayerWon()
@@ -98,6 +100,7 @@ namespace SimpleSpyGame
             {
                 _titleText.gameObject.SetActive(true);
                 SetLevelEndTextVisibility(_hideIt);
+                _titleAnims.InitAnims();
             }
             
         }
@@ -118,6 +121,11 @@ namespace SimpleSpyGame
             SystemEvents.FadeOutForGameExitDone();
         }
 
+        protected virtual void OnMoveToTitleScreenStart()
+        {
+            OnMoveToNextLevelStart();
+        }
+
         protected virtual void OnDisable()
         {
             StageEvents.PlayerWon -= OnPlayerWon;
@@ -125,6 +133,7 @@ namespace SimpleSpyGame
             SystemEvents.MoveToNextLevelStart -= OnMoveToNextLevelStart;
             SystemEvents.ExitGameSeqStart -= OnExitGameSeqStart;
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            SystemEvents.MoveToTitleScreenStart -= OnMoveToTitleScreenStart;
         }
     }
 }

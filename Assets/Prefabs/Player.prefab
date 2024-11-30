@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2
   _onMoveStop: {fileID: 3029674261181806248}
-  _onMoveToggle: {fileID: 8117345872892506824}
+  _onMoveToggle: {fileID: 0}
 --- !u!1001 &5362688411966933151
 PrefabInstance:
   m_ObjectHideFlags: 0

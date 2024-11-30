@@ -6,7 +6,7 @@ namespace SimpleSpyGame
     public class StageAudio : MonoBehaviour
     {
         [SerializeField] protected AudioClip _bgm, _victoryJingle, _failureJingle;
-        [SerializeField] protected int _bgmTrack = 1;
+        [SerializeField] protected int _bgmTrack = 0;
 
         protected virtual void Awake()
         {
@@ -16,6 +16,7 @@ namespace SimpleSpyGame
 
             if (bgmPlaying != _bgm)
             {
+                AudioSystem.S.StopPlaying(TrackGroup.BGMusic, _bgmTrack);
                 AudioSystem.S.Play(_bgmArgs);
             }
         }

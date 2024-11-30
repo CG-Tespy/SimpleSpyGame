@@ -1,6 +1,7 @@
 using CGT;
 using CGT.Utils;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,21 +56,21 @@ namespace SimpleSpyGame
 
         protected IDictionary<Material, Color> _matOrigColors = new Dictionary<Material, Color>();
 
-        public virtual void TraverseTo(Transform hidingSpot, bool poofRightAway = false)
+        public virtual void TraverseTo(Transform hidingSpot, bool poofRightAway = false, Action onComplete = null)
         {
             if (IsTraversing)
             {
                 return;
             }
 
-            StartCoroutine(TraversalCoroutine(hidingSpot, poofRightAway));
+            StartCoroutine(TraversalCoroutine(hidingSpot, poofRightAway, onComplete));
         }
 
-        protected virtual IEnumerator TraversalCoroutine(Transform hidingSpot, bool teleportToSpot)
+        protected virtual IEnumerator TraversalCoroutine(Transform hidingSpot, bool teleportToSpot, Action onComplete = null)
         {
             IsTraversing = true;
             _charaController.enabled = false; // <- So physics doesn't get in the way
-            
+
             Vector3 endRot = GetEndRotation(hidingSpot);
 
             if (teleportToSpot)
@@ -88,7 +89,7 @@ namespace SimpleSpyGame
                 // We'll want smooth movement on the nav mesh to the hiding spot
                 _agent.enabled = true;
                 NavMeshPath path = new NavMeshPath();
-                
+
                 NavMesh.CalculatePath(_agent.transform.position, hidingSpot.position, NavMesh.AllAreas, path);
                 _agent.isStopped = false;
                 _agent.SetPath(path);
@@ -109,6 +110,11 @@ namespace SimpleSpyGame
             }
 
             Debug.Log($"Arrived at target hiding spot: {hidingSpot.name}");
+
+            if (onComplete != null)
+            {
+                onComplete();
+            }
 
             IsTraversing = false;
             _agent.isStopped = true;

@@ -1,7 +1,4 @@
-using CGT.Myceliaudio;
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -36,17 +33,33 @@ namespace SimpleSpyGame
         protected Vector3 originalButtonScale;
         protected bool isButtonInteractable;
 
+        [SerializeField] [NaughtyAttributes.Scene] protected string _titleScene;
+
         Sequence _buttonAnimSeq; // For button growing and shrinking
 
         protected virtual void Awake()
         {
-            foreach (Button btn in buttons)
+            // Turns out that both Awake and Start can be called more than once for the same MonoBehaviour.
+            // Every time a new scene loads, even if that MonoBehaviour instance already called Awake or Start,
+            // those funcs just get called again. Hence this scene-check
+            if (SceneManager.GetActiveScene().name == _titleScene)
             {
-                btn.enabled = false;
+                foreach (Button btn in buttons)
+                {
+                    btn.enabled = false;
+                }
             }
         }
 
         protected virtual void Start()
+        {
+            if (SceneManager.GetActiveScene().name == _titleScene)
+            {
+                InitAnims();
+            }
+        }
+
+        public virtual void InitAnims()
         {
             cube.DORotate(new Vector3(360, 360, 0), cubeRotateDuration, RotateMode.FastBeyond360)
                 .SetLoops(-1, LoopType.Restart)

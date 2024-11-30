@@ -70,13 +70,17 @@ namespace SimpleSpyGame
 
         protected virtual IEnumerator PlayerVictorySequence()
         {
+            _playerLost = false;
+            _playerWon = true;
             yield return WaitToAllowPlayerInput();
         }
+
+        protected bool _playerWon, _playerLost;
 
         protected virtual IEnumerator WaitToAllowPlayerInput()
         {
             yield return _levelChangeWait;
-            _playerMayMoveToNextStage = true;
+            _playerMayFinishScene = true;
         }
 
         protected virtual void OnPlayerCaught()
@@ -89,21 +93,23 @@ namespace SimpleSpyGame
 
         protected virtual IEnumerator PlayerLossSequence()
         {
+            _playerLost = true;
+            _playerWon = false;
             yield return WaitToAllowPlayerInput();
         }
 
-        protected bool _playerMayMoveToNextStage;
+        protected bool _playerMayFinishScene;
 
         protected virtual void OnPlayerInteractInput()
         {
-            if (!_playerMayMoveToNextStage || !LevelOver)
+            if (!_playerMayFinishScene || !LevelOver)
             {
                 return;
             }
 
-            _playerMayMoveToNextStage = false; // <- To avoid the potential issue with button-mashing
+            _playerMayFinishScene = false; // <- To avoid the potential issue with button-mashing
             bool thereIsAnotherLevel = _currentLevelIndex < _stages.Count - 1;
-            if (thereIsAnotherLevel)
+            if (thereIsAnotherLevel && _playerWon)
             {
                 _shouldMoveToNextLevel = true;
                 SystemEvents.MoveToNextLevelStart();
@@ -139,8 +145,9 @@ namespace SimpleSpyGame
 
         protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            _playerMayMoveToNextStage = _shouldMoveToTitleScreen =
-                _shouldMoveToNextLevel = _movingToNextLevel = false;
+            _playerMayFinishScene = _shouldMoveToTitleScreen =
+                _shouldMoveToNextLevel = _movingToNextLevel = 
+                _playerWon = _playerLost = false;
 
             if (scene.name == _titleScreenScene)
             {
