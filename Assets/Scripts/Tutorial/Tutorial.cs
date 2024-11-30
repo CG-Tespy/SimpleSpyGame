@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using CGT.CharacterControls;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] GameObject player;
+    public GameObject player;
     [SerializeField] private List<Task> tasks;
     [SerializeField] private Text textShower;
     private Task currentTask;
+    public AltInputReader inputReader;
+
+    private void Awake()
+    {
+        inputReader = FindObjectOfType<AltInputReader>();       
+    }
+
+    private void OnEnable()
+    {
+        inputReader.ThirdEyeToggleStart += OnThridEyeToggle;
+        inputReader.HideStart += OnHideStart;
+    }
 
     private void Start()
     {
@@ -52,5 +65,15 @@ public class Tutorial : MonoBehaviour
         textShower.text = ""; // clear the text before showing
         textShower.DOText(currentTask.taskText, 1f);
         tasks.RemoveAt(0);
+	}
+
+    public void OnThridEyeToggle()
+    {
+        Debug.Log("Tutorial::OnThirdEyeToggle");
+	}
+
+    public void OnHideStart()
+    { 
+        Debug.Log("Tutorial::OnHideStart");
 	}
 }
